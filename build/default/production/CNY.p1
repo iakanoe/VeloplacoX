@@ -1,6 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "5398 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
+"5327
+[v _ADCON2 `Vuc ~T0 @X0 0 e@4032 ]
 "3545
 [s S138 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S138 . TMR1IF TMR2IF CCP1IF SSPIF TXIF RCIF ADIF ]
@@ -3203,18 +3205,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;CNY.c: 9: ADCON1 = 0x0A;
 "9
 [e = _ADCON1 -> -> 10 `i `uc ]
+[; ;CNY.c: 10: ADCON2 = 0xBE;
+"10
+[e = _ADCON2 -> -> 190 `i `uc ]
 [; ;CNY.c: 11: PIR1bits.ADIF = 0;
 "11
 [e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
 [; ;CNY.c: 12: PIE1bits.ADIE = 1;
 "12
 [e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
-[; ;CNY.c: 13: ADCON0bits.ADON = 1;
+[; ;CNY.c: 13: ADCON0bits.CHS = channels[actualChannel];
 "13
-[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;CNY.c: 14: ADCON0bits.CHS = channels[actualChannel];
-"14
 [e = . . _ADCON0bits 1 2 *U + &U _channels * -> _actualChannel `ux -> -> # *U &U _channels `ui `ux ]
+[; ;CNY.c: 14: ADCON0bits.ADON = 1;
+"14
+[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
 [; ;CNY.c: 15: ADCON0bits.GO = 1;
 "15
 [e = . . _ADCON0bits 4 1 -> -> 1 `i `uc ]

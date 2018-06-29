@@ -18,6 +18,7 @@ void initCNY(void){
 void cnyInterrupt(void){
     PIR1bits.ADIF = 0;
     data[actualChannel++] = ADRESH << 8 + ADRESL;
+    actualChannel %= 5;
     ADCON0bits.CHS = channels[actualChannel];
     ADCON0bits.GO = 1;
 }

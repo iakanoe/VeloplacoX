@@ -14,7 +14,8 @@ void loop(){
     switch(status){
         case MENU:
             setMotors(0, 0);
-            setLEDs(1, 0, 0);
+            unsigned int a = getCNY(1);
+            setLEDs(a > 100, a > 500, a > 1000);
             break;
     }
 }

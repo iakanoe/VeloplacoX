@@ -1,30 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"5398 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+"2846 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+[s S114 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S114 . TRISA0 TRISA1 TRISA2 TRISA3 TRISA4 TRISA5 TRISA6 ]
+"2855
+[s S115 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S115 . RA0 RA1 RA2 RA3 RA4 RA5 RA6 ]
+"2845
+[u S113 `S114 1 `S115 1 ]
+[n S113 . . . ]
+"2865
+[v _TRISAbits `VS113 ~T0 @X0 0 e@3986 ]
+"5398
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
 "5327
 [v _ADCON2 `Vuc ~T0 @X0 0 e@4032 ]
-"3545
-[s S138 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S138 . TMR1IF TMR2IF CCP1IF SSPIF TXIF RCIF ADIF ]
-"3554
-[s S139 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S139 . . TX1IF RC1IF ]
-"3544
-[u S137 `S138 1 `S139 1 ]
-[n S137 . . . ]
-"3560
-[v _PIR1bits `VS137 ~T0 @X0 0 e@3998 ]
-"3474
-[s S135 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S135 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE ]
-"3483
-[s S136 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S136 . . TX1IE RC1IE ]
-"3473
-[u S134 `S135 1 `S136 1 ]
-[n S134 . . . ]
-"3489
-[v _PIE1bits `VS134 ~T0 @X0 0 e@3997 ]
 "5489
 [s S228 :1 `uc 1 :1 `uc 1 ]
 [n S228 . . GO_NOT_DONE ]
@@ -3166,7 +3155,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;CNY.h: 4: void initCNY(void);
 [; ;CNY.h: 5: void cnyInterrupt(void);
 [; ;CNY.h: 6: unsigned int getCNY(unsigned char channel);
-"4 CNY.c
+"10 CNY.c
 [v _channels `Cuc ~T0 @X0 -> 0 `x e ]
 [i _channels
 :U ..
@@ -3177,96 +3166,85 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ..
 ]
-[; ;CNY.c: 4: const unsigned char channels[] = {4, 3, 2, 1, 0};
-"5
-[v _actualChannel `uc ~T0 @X0 1 e ]
-[i _actualChannel
--> -> 0 `i `uc
-]
-[; ;CNY.c: 5: unsigned char actualChannel = 0;
-"6
-[v _data `ui ~T0 @X0 -> 0 `x e ]
-[i _data
-:U ..
--> -> 0 `i `ui
--> -> 0 `i `ui
--> -> 0 `i `ui
--> -> 0 `i `ui
--> -> 0 `i `ui
-..
-]
-[; ;CNY.c: 6: unsigned int data[] = {0, 0, 0, 0, 0};
-"8
-[v _initCNY `(v ~T0 @X0 1 ef ]
-{
-[; ;CNY.c: 8: void initCNY(void){
-[e :U _initCNY ]
-[f ]
-[; ;CNY.c: 9: ADCON1 = 0x0A;
-"9
-[e = _ADCON1 -> -> 10 `i `uc ]
-[; ;CNY.c: 10: ADCON2 = 0xBE;
-"10
-[e = _ADCON2 -> -> 190 `i `uc ]
-[; ;CNY.c: 11: PIR1bits.ADIF = 0;
-"11
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;CNY.c: 12: PIE1bits.ADIE = 1;
-"12
-[e = . . _PIE1bits 0 6 -> -> 1 `i `uc ]
-[; ;CNY.c: 13: ADCON0bits.CHS = channels[actualChannel];
-"13
-[e = . . _ADCON0bits 1 2 *U + &U _channels * -> _actualChannel `ux -> -> # *U &U _channels `ui `ux ]
-[; ;CNY.c: 14: ADCON0bits.ADON = 1;
-"14
-[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
-[; ;CNY.c: 15: ADCON0bits.GO = 1;
-"15
-[e = . . _ADCON0bits 4 1 -> -> 1 `i `uc ]
-[; ;CNY.c: 16: }
-"16
-[e :UE 322 ]
-}
-"18
+[; ;CNY.c: 10: const unsigned char channels[] = {4, 3, 2, 1, 0};
+"45
 [v _cnyInterrupt `(v ~T0 @X0 1 ef ]
 {
-[; ;CNY.c: 18: void cnyInterrupt(void){
+[; ;CNY.c: 45: void cnyInterrupt(void){return;}
 [e :U _cnyInterrupt ]
 [f ]
-[; ;CNY.c: 19: PIR1bits.ADIF = 0;
-"19
-[e = . . _PIR1bits 0 6 -> -> 0 `i `uc ]
-[; ;CNY.c: 20: data[actualChannel++] = ADRESH << 8 + ADRESL;
-"20
-[e = *U + &U _data * -> ++ _actualChannel -> -> 1 `i `uc `ux -> -> # *U &U _data `ui `ux -> << -> _ADRESH `i + -> 8 `i -> _ADRESL `i `ui ]
-[; ;CNY.c: 21: ADCON0bits.CHS = channels[actualChannel];
-"21
-[e = . . _ADCON0bits 1 2 *U + &U _channels * -> _actualChannel `ux -> -> # *U &U _channels `ui `ux ]
-[; ;CNY.c: 22: ADCON0bits.GO = 1;
-"22
-[e = . . _ADCON0bits 4 1 -> -> 1 `i `uc ]
-[; ;CNY.c: 23: }
-"23
+[e $UE 322  ]
+[e :UE 322 ]
+}
+"46
+[v _initCNY `(v ~T0 @X0 1 ef ]
+{
+[; ;CNY.c: 46: void initCNY(void){
+[e :U _initCNY ]
+[f ]
+[; ;CNY.c: 47: TRISAbits.RA5 = 1;
+"47
+[e = . . _TRISAbits 1 5 -> -> 1 `i `uc ]
+[; ;CNY.c: 48: TRISAbits.RA3 = 1;
+"48
+[e = . . _TRISAbits 1 3 -> -> 1 `i `uc ]
+[; ;CNY.c: 49: TRISAbits.RA2 = 1;
+"49
+[e = . . _TRISAbits 1 2 -> -> 1 `i `uc ]
+[; ;CNY.c: 50: TRISAbits.RA1 = 1;
+"50
+[e = . . _TRISAbits 1 1 -> -> 1 `i `uc ]
+[; ;CNY.c: 51: TRISAbits.RA0 = 1;
+"51
+[e = . . _TRISAbits 1 0 -> -> 1 `i `uc ]
+[; ;CNY.c: 52: ADCON1 = 0x0A;
+"52
+[e = _ADCON1 -> -> 10 `i `uc ]
+[; ;CNY.c: 53: ADCON2 = 0xA5;
+"53
+[e = _ADCON2 -> -> 165 `i `uc ]
+[; ;CNY.c: 54: }
+"54
 [e :UE 323 ]
 }
-"25
+"56
 [v _getCNY `(ui ~T0 @X0 1 ef1`uc ]
 {
-[; ;CNY.c: 25: unsigned int getCNY(unsigned char channel){
+[; ;CNY.c: 56: unsigned int getCNY(unsigned char channel){
 [e :U _getCNY ]
 [v _channel `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;CNY.c: 26: if(channel >= 5) return 0;
-"26
+[; ;CNY.c: 57: if(channel >= 5) return 0;
+"57
 [e $ ! >= -> _channel `i -> 5 `i 325  ]
 [e ) -> -> 0 `i `ui ]
 [e $UE 324  ]
 [e :U 325 ]
-[; ;CNY.c: 27: return data[channel];
-"27
-[e ) *U + &U _data * -> _channel `ux -> -> # *U &U _data `ui `ux ]
+[; ;CNY.c: 58: ADCON0bits.CHS = channels[channel];
+"58
+[e = . . _ADCON0bits 1 2 *U + &U _channels * -> _channel `ux -> -> # *U &U _channels `ui `ux ]
+[; ;CNY.c: 59: ADCON0bits.ADON = 1;
+"59
+[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
+[; ;CNY.c: 60: ADCON0bits.GO = 1;
+"60
+[e = . . _ADCON0bits 4 1 -> -> 1 `i `uc ]
+[; ;CNY.c: 61: while(ADCON0bits.GO) continue;
+"61
+[e $U 326  ]
+[e :U 327 ]
+[e $U 326  ]
+[e :U 326 ]
+[e $ != -> . . _ADCON0bits 4 1 `i -> -> -> 0 `i `Vuc `i 327  ]
+[e :U 328 ]
+[; ;CNY.c: 62: ADCON0bits.ADON = 0;
+"62
+[e = . . _ADCON0bits 1 0 -> -> 0 `i `uc ]
+[; ;CNY.c: 63: return ((ADRESH << 8) + ADRESL);
+"63
+[e ) -> + << -> _ADRESH `i -> 8 `i -> _ADRESL `i `ui ]
 [e $UE 324  ]
-[; ;CNY.c: 28: }
-"28
+[; ;CNY.c: 64: }
+"64
 [e :UE 324 ]
 }

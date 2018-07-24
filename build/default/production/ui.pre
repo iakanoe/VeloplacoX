@@ -4269,15 +4269,15 @@ extern __nonreentrant void _delay3(unsigned char);
 # 4 "ui.h"
 void initUI(void);
 void setLEDs(char r, char y, char g);
-char getBTN1(void);
-char getBTN2(void);
-char getBTNs(void);
+bit getBTN1(void);
+bit getBTN2(void);
+bit getBTNs(void);
 void setLEDR(char v);
 void setLEDY(char v);
 void setLEDG(char v);
-char getLEDR(void);
-char getLEDY(void);
-char getLEDG(void);
+bit getLEDR(void);
+bit getLEDY(void);
+bit getLEDG(void);
 
 # 18 "ui.c"
 void initUI(void){
@@ -4300,15 +4300,15 @@ setLEDY(y);
 setLEDG(g);
 }
 
-unsigned char getBTN1(void){
+bit getBTN1(void){
 return !PORTBbits.RB0;
 }
 
-unsigned char getBTN2(void){
+bit getBTN2(void){
 return !PORTBbits.RB5;
 }
 
-unsigned char getBTNs(void){
+bit getBTNs(void){
 return getBTN1() || getBTN2();
 }
 
@@ -4324,14 +4324,14 @@ void setLEDG(char v){
 LATBbits.LB3 = v;
 }
 
-char getLEDR(void){
+bit getLEDR(void){
 return LATBbits.LB1;
 }
 
-char getLEDY(void){
+bit getLEDY(void){
 return LATBbits.LB2;
 }
 
-char getLEDG(void){
+bit getLEDG(void){
 return LATBbits.LB3;
 }

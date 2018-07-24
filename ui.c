@@ -35,15 +35,15 @@ void setLEDs(char r, char y, char g){
     setLEDG(g);
 }
 
-unsigned char getBTN1(void){
+bit getBTN1(void){
     return !PORT_BTN1;
 }
 
-unsigned char getBTN2(void){
+bit getBTN2(void){
     return !PORT_BTN2;
 }
 
-unsigned char getBTNs(void){
+bit getBTNs(void){
     return getBTN1() || getBTN2();
 }
 
@@ -59,14 +59,14 @@ void setLEDG(char v){
     PORT_LEDG = v;
 }
 
-char getLEDR(void){
+bit getLEDR(void){
     return PORT_LEDR;
 }
 
-char getLEDY(void){
+bit getLEDY(void){
     return PORT_LEDY;
 }
 
-char getLEDG(void){
+bit getLEDG(void){
     return PORT_LEDG;
 }

@@ -3,14 +3,14 @@
 
 void initUI(void);
 void setLEDs(char r, char y, char g);
-char getBTN1(void);
-char getBTN2(void);
-char getBTNs(void);
+bit getBTN1(void);
+bit getBTN2(void);
+bit getBTNs(void);
 void setLEDR(char v);
 void setLEDY(char v);
 void setLEDG(char v);
-char getLEDR(void);
-char getLEDY(void);
-char getLEDG(void);
+bit getLEDR(void);
+bit getLEDY(void);
+bit getLEDG(void);
 
 #endif

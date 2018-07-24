@@ -49,15 +49,15 @@ void initTimer(void);
 # 4 "ui.h"
 void initUI(void);
 void setLEDs(char r, char y, char g);
-char getBTN1(void);
-char getBTN2(void);
-char getBTNs(void);
+bit getBTN1(void);
+bit getBTN2(void);
+bit getBTNs(void);
 void setLEDR(char v);
 void setLEDY(char v);
 void setLEDG(char v);
-char getLEDR(void);
-char getLEDY(void);
-char getLEDG(void);
+bit getLEDR(void);
+bit getLEDY(void);
+bit getLEDG(void);
 
 # 4 "motors.h"
 void initMotors(void);
@@ -67,6 +67,11 @@ void setMotors(signed int left, signed int right);
 void initCNY(void);
 void cnyInterrupt(void);
 unsigned int getCNY(unsigned char channel);
+
+# 4 "calibration.h"
+void initCal(void);
+void calibrateCNY(unsigned int channel);
+unsigned int getCalCNY(unsigned int channel);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -4333,17 +4338,44 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 8 "main.c"
+# 9 "main.c"
 enum {
-MENU
+MENU,
+RUN
 };
+
+int calcPID(float Kp, float Ki, float Kd){
+static int prevErr = 0, integral = 0, err;
+unsigned long long s1 = 0, s2 = 0;
+for(int i = 0; i < 5; i++){
+unsigned int val = getCalCNY(i);
+s1 += val * (i + 1) * 100;
+s2 += val;
+}
+int pos = s1 / s2;
+prevErr = err;
+err = 300 - pos;
+integral += err;
+return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
+
+}
 
 void loop(){
 static char status = MENU;
+int pid;
 switch(status){
 case MENU:
 setMotors(0, 0);
 setLEDs(1, 0, 0);
+
+
+
+break;
+
+case RUN:
+pid = calcPID(1, 0, 0);
+if(pid < 0) setMotors(( pid), 0);
+else setMotors(0 , ( pid));
 break;
 }
 }

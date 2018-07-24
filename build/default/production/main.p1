@@ -1,7 +1,9 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"13 main.c
-[c E3364 0 .. ]
-[n E3364 . MENU  ]
+"6 calibration.h
+[v _getCalCNY `(ui ~T0 @X0 0 ef1`ui ]
+"31 main.c
+[c E3370 0 1 .. ]
+[n E3370 . MENU RUN  ]
 "5 motors.h
 [v _setMotors `(v ~T0 @X0 0 ef2`i`i ]
 "5 ui.h
@@ -112,20 +114,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;timer.h: 6: void initTimer(void);
 [; ;ui.h: 4: void initUI(void);
 [; ;ui.h: 5: void setLEDs(char r, char y, char g);
-[; ;ui.h: 6: char getBTN1(void);
-[; ;ui.h: 7: char getBTN2(void);
-[; ;ui.h: 8: char getBTNs(void);
+[; ;ui.h: 6: bit getBTN1(void);
+[; ;ui.h: 7: bit getBTN2(void);
+[; ;ui.h: 8: bit getBTNs(void);
 [; ;ui.h: 9: void setLEDR(char v);
 [; ;ui.h: 10: void setLEDY(char v);
 [; ;ui.h: 11: void setLEDG(char v);
-[; ;ui.h: 12: char getLEDR(void);
-[; ;ui.h: 13: char getLEDY(void);
-[; ;ui.h: 14: char getLEDG(void);
+[; ;ui.h: 12: bit getLEDR(void);
+[; ;ui.h: 13: bit getLEDY(void);
+[; ;ui.h: 14: bit getLEDG(void);
 [; ;motors.h: 4: void initMotors(void);
 [; ;motors.h: 5: void setMotors(signed int left, signed int right);
 [; ;CNY.h: 4: void initCNY(void);
 [; ;CNY.h: 5: void cnyInterrupt(void);
 [; ;CNY.h: 6: unsigned int getCNY(unsigned char channel);
+[; ;calibration.h: 4: void initCal(void);
+[; ;calibration.h: 5: void calibrateCNY(unsigned int channel);
+[; ;calibration.h: 6: unsigned int getCalCNY(unsigned int channel);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3231,115 +3236,214 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;main.c: 8: enum {
-[; ;main.c: 9: MENU
-[; ;main.c: 10: };
-"12 main.c
-[v _loop `(v ~T0 @X0 1 ef ]
+[; ;main.c: 9: enum {
+[; ;main.c: 10: MENU,
+[; ;main.c: 11: RUN
+[; ;main.c: 12: };
+"14 main.c
+[v _calcPID `(i ~T0 @X0 1 ef3`f`f`f ]
 {
-[; ;main.c: 12: void loop(){
-[e :U _loop ]
+[; ;main.c: 14: int calcPID(float Kp, float Ki, float Kd){
+[e :U _calcPID ]
+[v _Kp `f ~T0 @X0 1 r1 ]
+[v _Ki `f ~T0 @X0 1 r2 ]
+[v _Kd `f ~T0 @X0 1 r3 ]
 [f ]
-"13
-[v F3367 `uc ~T0 @X0 1 s status ]
-[i F3367
--> . `E3364 0 `uc
-]
-[; ;main.c: 13: static char status = MENU;
-[; ;main.c: 14: switch(status){
-"14
-[e $U 324  ]
-{
-[; ;main.c: 15: case MENU:
 "15
-[e :U 325 ]
-[; ;main.c: 16: setMotors(0, 0);
+[v F3377 `i ~T0 @X0 1 s prevErr ]
+[i F3377
+-> 0 `i
+]
+[v F3378 `i ~T0 @X0 1 s integral ]
+[i F3378
+-> 0 `i
+]
+[v F3379 `i ~T0 @X0 1 s err ]
 "16
-[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
-[; ;main.c: 17: setLEDs(1, 0, 0);
+[v _s1 `ul ~T0 @X0 1 a ]
+[; ;main.c: 15: static int prevErr = 0, integral = 0, err;
+[; ;main.c: 16: unsigned long long s1 = 0, s2 = 0;
+[e = _s1 -> -> -> 0 `i `l `ul ]
+[v _s2 `ul ~T0 @X0 1 a ]
+[e = _s2 -> -> -> 0 `i `l `ul ]
+[; ;main.c: 17: for(int i = 0; i < 5; i++){
 "17
-[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc ]
-[; ;main.c: 18: break;
-"18
-[e $U 323  ]
-"19
-}
-[; ;main.c: 19: }
-[e $U 323  ]
-"14
-[e :U 324 ]
-[e [\ F3367 , $ -> . `E3364 0 `uc 325
- 323 ]
-"19
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e $U 324  ]
 [e :U 323 ]
-[; ;main.c: 20: }
+{
+"18
+[v _val `ui ~T0 @X0 1 a ]
+[; ;main.c: 18: unsigned int val = getCalCNY(i);
+[e = _val ( _getCalCNY (1 -> _i `ui ]
+[; ;main.c: 19: s1 += val * (i + 1) * 100;
+"19
+[e =+ _s1 -> * * _val -> + _i -> 1 `i `ui -> -> 100 `i `ui `ul ]
+[; ;main.c: 20: s2 += val;
 "20
-[e :UE 322 ]
+[e =+ _s2 -> _val `ul ]
+"21
+}
+"17
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e :U 324 ]
+"21
 }
 "22
-[v _initInterrupts `(v ~T0 @X0 1 ef ]
-{
-[; ;main.c: 22: void initInterrupts(void){
-[e :U _initInterrupts ]
-[f ]
-[; ;main.c: 23: INTCONbits.PEIE = 1;
+[v _pos `i ~T0 @X0 1 a ]
+[; ;main.c: 21: }
+[; ;main.c: 22: int pos = s1 / s2;
+[e = _pos -> / _s1 _s2 `i ]
+[; ;main.c: 23: prevErr = err;
 "23
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;main.c: 24: INTCONbits.GIE = 1;
+[e = F3377 F3379 ]
+[; ;main.c: 24: err = 300 - pos;
 "24
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;main.c: 25: }
+[e = F3379 - -> 300 `i _pos ]
+[; ;main.c: 25: integral += err;
 "25
+[e =+ F3378 F3379 ]
+[; ;main.c: 26: return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
+"26
+[e ) -> + + -> -> * _Kp -> F3379 `f `i `f * _Ki -> F3378 `f * _Kd -> - F3379 F3377 `f `i ]
+[e $UE 322  ]
+[; ;main.c: 28: }
+"28
+[e :UE 322 ]
+}
+"30
+[v _loop `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 30: void loop(){
+[e :U _loop ]
+[f ]
+"31
+[v F3390 `uc ~T0 @X0 1 s status ]
+[i F3390
+-> . `E3370 0 `uc
+]
+"32
+[v _pid `i ~T0 @X0 1 a ]
+[; ;main.c: 31: static char status = MENU;
+[; ;main.c: 32: int pid;
+[; ;main.c: 33: switch(status){
+"33
+[e $U 328  ]
+{
+[; ;main.c: 34: case MENU:
+"34
+[e :U 329 ]
+[; ;main.c: 35: setMotors(0, 0);
+"35
+[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
+[; ;main.c: 36: setLEDs(1, 0, 0);
+"36
+[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc ]
+[; ;main.c: 40: break;
+"40
+[e $U 327  ]
+[; ;main.c: 42: case RUN:
+"42
+[e :U 330 ]
+[; ;main.c: 43: pid = calcPID(1, 0, 0);
+"43
+[e = _pid ( _calcPID (3 , , -> -> 1 `i `f -> -> 0 `i `f -> -> 0 `i `f ]
+[; ;main.c: 44: if(pid < 0) setMotors(( pid), 0);
+"44
+[e $ ! < _pid -> 0 `i 331  ]
+[e ( _setMotors (2 , _pid -> 0 `i ]
+[e $U 332  ]
+"45
+[e :U 331 ]
+[; ;main.c: 45: else setMotors(0 , ( pid));
+[e ( _setMotors (2 , -> 0 `i _pid ]
+[e :U 332 ]
+[; ;main.c: 46: break;
+"46
+[e $U 327  ]
+"47
+}
+[; ;main.c: 47: }
+[e $U 327  ]
+"33
+[e :U 328 ]
+[e [\ F3390 , $ -> . `E3370 0 `uc 329
+ , $ -> . `E3370 1 `uc 330
+ 327 ]
+"47
+[e :U 327 ]
+[; ;main.c: 48: }
+"48
 [e :UE 326 ]
 }
+"50
+[v _initInterrupts `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 50: void initInterrupts(void){
+[e :U _initInterrupts ]
+[f ]
+[; ;main.c: 51: INTCONbits.PEIE = 1;
+"51
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;main.c: 52: INTCONbits.GIE = 1;
+"52
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;main.c: 53: }
+"53
+[e :UE 333 ]
+}
 [v $root$_main `(v ~T0 @X0 0 e ]
-"26
+"54
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 26: void main(){
+[; ;main.c: 54: void main(){
 [e :U _main ]
 [f ]
-[; ;main.c: 27: initInterrupts();
-"27
+[; ;main.c: 55: initInterrupts();
+"55
 [e ( _initInterrupts ..  ]
-[; ;main.c: 28: initTimer();
-"28
+[; ;main.c: 56: initTimer();
+"56
 [e ( _initTimer ..  ]
-[; ;main.c: 29: initUI();
-"29
+[; ;main.c: 57: initUI();
+"57
 [e ( _initUI ..  ]
-[; ;main.c: 30: initMotors();
-"30
+[; ;main.c: 58: initMotors();
+"58
 [e ( _initMotors ..  ]
-[; ;main.c: 31: initCNY();
-"31
+[; ;main.c: 59: initCNY();
+"59
 [e ( _initCNY ..  ]
-[; ;main.c: 32: while(1) loop();
-"32
-[e :U 329 ]
+[; ;main.c: 60: while(1) loop();
+"60
+[e :U 336 ]
 [e ( _loop ..  ]
-[e :U 328 ]
-[e $U 329  ]
-[e :U 330 ]
-[; ;main.c: 33: }
-"33
-[e :UE 327 ]
+[e :U 335 ]
+[e $U 336  ]
+[e :U 337 ]
+[; ;main.c: 61: }
+"61
+[e :UE 334 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
-[v F3373 `(v ~T0 @X0 1 tf ]
-"34
-[v _ISR `IF3373 ~T0 @X0 1 e ]
+[v F3397 `(v ~T0 @X0 1 tf ]
+"62
+[v _ISR `IF3397 ~T0 @X0 1 e ]
 {
-[; ;main.c: 34: void interrupt ISR(void){
+[; ;main.c: 62: void interrupt ISR(void){
 [e :U _ISR ]
 [f ]
-[; ;main.c: 35: timerInterrupt();
-"35
+[; ;main.c: 63: timerInterrupt();
+"63
 [e ( _timerInterrupt ..  ]
-[; ;main.c: 36: cnyInterrupt();
-"36
+[; ;main.c: 64: cnyInterrupt();
+"64
 [e ( _cnyInterrupt ..  ]
-[; ;main.c: 37: }
-"37
-[e :UE 331 ]
+[; ;main.c: 65: }
+"65
+[e :UE 338 ]
 }

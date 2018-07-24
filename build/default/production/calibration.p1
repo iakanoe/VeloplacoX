@@ -1,46 +1,12 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"3044 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
-[s S120 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S120 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
-"3054
-[s S121 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S121 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"3043
-[u S119 `S120 1 `S121 1 ]
-[n S119 . . . ]
-"3065
-[v _TRISBbits `VS119 ~T0 @X0 0 e@3987 ]
-"2651
-[s S108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S108 . LATB0 LATB1 LATB2 LATB3 LATB4 LATB5 LATB6 LATB7 ]
-"2661
-[s S109 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S109 . LB0 LB1 LB2 LB3 LB4 LB5 LB6 LB7 ]
-"2650
-[u S107 `S108 1 `S109 1 ]
-[n S107 . . . ]
-"2672
-[v _LATBbits `VS107 ~T0 @X0 0 e@3978 ]
-"9 ui.h
-[v _setLEDR `(v ~T0 @X0 0 ef1`uc ]
-"10
-[v _setLEDY `(v ~T0 @X0 0 ef1`uc ]
-"11
-[v _setLEDG `(v ~T0 @X0 0 ef1`uc ]
-"2260 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
-[s S91 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S91 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
-"2270
-[s S92 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S92 . INT0 INT1 INT2 . PGM PGC PGD ]
-"2279
-[s S93 :3 `uc 1 :1 `uc 1 ]
-[n S93 . . CCP2_PA2 ]
-"2259
-[u S90 `S91 1 `S92 1 `S93 1 ]
-[n S90 . . . . ]
-"2284
-[v _PORTBbits `VS90 ~T0 @X0 0 e@3969 ]
+"6 CNY.h
+[v _getCNY `(ui ~T0 @X0 0 ef1`uc ]
+[; ;CNY.h: 4: void initCNY(void);
+[; ;CNY.h: 5: void cnyInterrupt(void);
+[; ;CNY.h: 6: unsigned int getCNY(unsigned char channel);
+[; ;calibration.h: 4: void initCal(void);
+[; ;calibration.h: 5: void calibrateCNY(unsigned int channel);
+[; ;calibration.h: 6: unsigned int getCalCNY(unsigned int channel);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3146,196 +3112,86 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;ui.h: 4: void initUI(void);
-[; ;ui.h: 5: void setLEDs(char r, char y, char g);
-[; ;ui.h: 6: bit getBTN1(void);
-[; ;ui.h: 7: bit getBTN2(void);
-[; ;ui.h: 8: bit getBTNs(void);
-[; ;ui.h: 9: void setLEDR(char v);
-[; ;ui.h: 10: void setLEDY(char v);
-[; ;ui.h: 11: void setLEDG(char v);
-[; ;ui.h: 12: bit getLEDR(void);
-[; ;ui.h: 13: bit getLEDY(void);
-[; ;ui.h: 14: bit getLEDG(void);
-"18 ui.c
-[v _initUI `(v ~T0 @X0 1 ef ]
+"9 calibration.c
+[v _mins `ui ~T0 @X0 -> 5 `i e ]
+[v _maxs `ui ~T0 @X0 -> 5 `i e ]
+[; ;calibration.c: 9: unsigned int mins[5], maxs[5];
+"11
+[v _initCal `(v ~T0 @X0 1 ef ]
 {
-[; ;ui.c: 18: void initUI(void){
-[e :U _initUI ]
+[; ;calibration.c: 11: void initCal(void){
+[e :U _initCal ]
 [f ]
-[; ;ui.c: 19: TRISBbits.RB1 = 0;
-"19
-[e = . . _TRISBbits 1 1 -> -> 0 `i `uc ]
-[; ;ui.c: 20: LATBbits.LB1 = 0;
-"20
-[e = . . _LATBbits 1 1 -> -> 0 `i `uc ]
-[; ;ui.c: 22: TRISBbits.RB2 = 0;
-"22
-[e = . . _TRISBbits 1 2 -> -> 0 `i `uc ]
-[; ;ui.c: 23: LATBbits.LB2 = 0;
-"23
-[e = . . _LATBbits 1 2 -> -> 0 `i `uc ]
-[; ;ui.c: 25: TRISBbits.RB3 = 0;
-"25
-[e = . . _TRISBbits 1 3 -> -> 0 `i `uc ]
-[; ;ui.c: 26: LATBbits.LB3 = 0;
-"26
-[e = . . _LATBbits 1 3 -> -> 0 `i `uc ]
-[; ;ui.c: 28: TRISBbits.RB0 = 1;
-"28
-[e = . . _TRISBbits 1 0 -> -> 1 `i `uc ]
-[; ;ui.c: 29: TRISBbits.RB5 = 1;
-"29
-[e = . . _TRISBbits 1 5 -> -> 1 `i `uc ]
-[; ;ui.c: 30: }
-"30
+[; ;calibration.c: 12: for(int i = 0; i < 5; i++){
+"12
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e $U 324  ]
+[e :U 323 ]
+{
+[; ;calibration.c: 13: mins[i] = 1024;
+"13
+[e = *U + &U _mins * -> -> _i `ui `ux -> -> # *U &U _mins `ui `ux -> -> 1024 `i `ui ]
+[; ;calibration.c: 14: maxs[i] = 0;
+"14
+[e = *U + &U _maxs * -> -> _i `ui `ux -> -> # *U &U _maxs `ui `ux -> -> 0 `i `ui ]
+"15
+}
+"12
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e :U 324 ]
+"15
+}
+[; ;calibration.c: 15: }
+[; ;calibration.c: 16: }
+"16
 [e :UE 322 ]
 }
-"32
-[v _setLEDs `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+"18
+[v _calibrateCNY `(v ~T0 @X0 1 ef1`ui ]
 {
-[; ;ui.c: 32: void setLEDs(char r, char y, char g){
-[e :U _setLEDs ]
-[v _r `uc ~T0 @X0 1 r1 ]
-[v _y `uc ~T0 @X0 1 r2 ]
-[v _g `uc ~T0 @X0 1 r3 ]
+[; ;calibration.c: 18: void calibrateCNY(unsigned int channel){
+[e :U _calibrateCNY ]
+[v _channel `ui ~T0 @X0 1 r1 ]
 [f ]
-[; ;ui.c: 33: setLEDR(r);
-"33
-[e ( _setLEDR (1 _r ]
-[; ;ui.c: 34: setLEDY(y);
-"34
-[e ( _setLEDY (1 _y ]
-[; ;ui.c: 35: setLEDG(g);
-"35
-[e ( _setLEDG (1 _g ]
-[; ;ui.c: 36: }
-"36
-[e :UE 323 ]
-}
-"38
-[v _getBTN1 `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 38: bit getBTN1(void){
-[e :U _getBTN1 ]
-[f ]
-[; ;ui.c: 39: return !PORTBbits.RB0;
-"39
-[e ) -> -> ! != -> . . _PORTBbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `b ]
-[e $UE 324  ]
-[; ;ui.c: 40: }
-"40
-[e :UE 324 ]
-}
-"42
-[v _getBTN2 `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 42: bit getBTN2(void){
-[e :U _getBTN2 ]
-[f ]
-[; ;ui.c: 43: return !PORTBbits.RB5;
-"43
-[e ) -> -> ! != -> . . _PORTBbits 0 5 `i -> -> -> 0 `i `Vuc `i `i `b ]
-[e $UE 325  ]
-[; ;ui.c: 44: }
-"44
-[e :UE 325 ]
-}
-"46
-[v _getBTNs `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 46: bit getBTNs(void){
-[e :U _getBTNs ]
-[f ]
-[; ;ui.c: 47: return getBTN1() || getBTN2();
-"47
-[e ) -> -> || ( _getBTN1 ..  ( _getBTN2 ..  `i `b ]
-[e $UE 326  ]
-[; ;ui.c: 48: }
-"48
+"19
+[v _val `ui ~T0 @X0 1 a ]
+[; ;calibration.c: 19: unsigned int val = getCNY(channel);
+[e = _val ( _getCNY (1 -> _channel `uc ]
+[; ;calibration.c: 20: mins[channel] = ((val) < (mins[channel]) ? (val) : (mins[channel]));
+"20
+[e = *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux ? < _val *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux : _val *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux ]
+[; ;calibration.c: 21: maxs[channel] = ((val) > (maxs[channel]) ? (val) : (maxs[channel]));
+"21
+[e = *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux ? > _val *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux : _val *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux ]
+[; ;calibration.c: 22: }
+"22
 [e :UE 326 ]
 }
-"50
-[v _setLEDR `(v ~T0 @X0 1 ef1`uc ]
+"24
+[v _getCalCNY `(ui ~T0 @X0 1 ef1`ui ]
 {
-[; ;ui.c: 50: void setLEDR(char v){
-[e :U _setLEDR ]
-[v _v `uc ~T0 @X0 1 r1 ]
+[; ;calibration.c: 24: unsigned int getCalCNY(unsigned int channel){
+[e :U _getCalCNY ]
+[v _channel `ui ~T0 @X0 1 r1 ]
 [f ]
-[; ;ui.c: 51: LATBbits.LB1 = v;
-"51
-[e = . . _LATBbits 1 1 _v ]
-[; ;ui.c: 52: }
-"52
+"25
+[v _val `ui ~T0 @X0 1 a ]
+[; ;calibration.c: 25: unsigned int val = getCNY(channel);
+[e = _val ( _getCNY (1 -> _channel `uc ]
+[; ;calibration.c: 26: mins[channel] = ((val) < (mins[channel]) ? (val) : (mins[channel]));
+"26
+[e = *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux ? < _val *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux : _val *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux ]
+[; ;calibration.c: 27: maxs[channel] = ((val) > (maxs[channel]) ? (val) : (maxs[channel]));
+"27
+[e = *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux ? > _val *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux : _val *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux ]
+[; ;calibration.c: 28: val = (0 + ((1000 - 0) / (maxs[channel] - mins[channel])) * (val - mins[channel]));
+"28
+[e = _val + -> -> 0 `i `ui * / -> - -> 1000 `i -> 0 `i `ui - *U + &U _maxs * -> _channel `ux -> -> # *U &U _maxs `ui `ux *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux - _val *U + &U _mins * -> _channel `ux -> -> # *U &U _mins `ui `ux ]
+[; ;calibration.c: 29: }
+"29
 [e :UE 327 ]
-}
-"54
-[v _setLEDY `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;ui.c: 54: void setLEDY(char v){
-[e :U _setLEDY ]
-[v _v `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;ui.c: 55: LATBbits.LB2 = v;
-"55
-[e = . . _LATBbits 1 2 _v ]
-[; ;ui.c: 56: }
-"56
-[e :UE 328 ]
-}
-"58
-[v _setLEDG `(v ~T0 @X0 1 ef1`uc ]
-{
-[; ;ui.c: 58: void setLEDG(char v){
-[e :U _setLEDG ]
-[v _v `uc ~T0 @X0 1 r1 ]
-[f ]
-[; ;ui.c: 59: LATBbits.LB3 = v;
-"59
-[e = . . _LATBbits 1 3 _v ]
-[; ;ui.c: 60: }
-"60
-[e :UE 329 ]
-}
-"62
-[v _getLEDR `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 62: bit getLEDR(void){
-[e :U _getLEDR ]
-[f ]
-[; ;ui.c: 63: return LATBbits.LB1;
-"63
-[e ) -> . . _LATBbits 1 1 `b ]
-[e $UE 330  ]
-[; ;ui.c: 64: }
-"64
-[e :UE 330 ]
-}
-"66
-[v _getLEDY `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 66: bit getLEDY(void){
-[e :U _getLEDY ]
-[f ]
-[; ;ui.c: 67: return LATBbits.LB2;
-"67
-[e ) -> . . _LATBbits 1 2 `b ]
-[e $UE 331  ]
-[; ;ui.c: 68: }
-"68
-[e :UE 331 ]
-}
-"70
-[v _getLEDG `(b ~T0 @X0 1 ef ]
-{
-[; ;ui.c: 70: bit getLEDG(void){
-[e :U _getLEDG ]
-[f ]
-[; ;ui.c: 71: return LATBbits.LB3;
-"71
-[e ) -> . . _LATBbits 1 3 `b ]
-[e $UE 332  ]
-[; ;ui.c: 72: }
-"72
-[e :UE 332 ]
 }

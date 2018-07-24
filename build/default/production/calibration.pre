@@ -1,5 +1,15 @@
 
-# 1 "CNY.c"
+# 1 "calibration.c"
+
+# 4 "CNY.h"
+void initCNY(void);
+void cnyInterrupt(void);
+unsigned int getCNY(unsigned char channel);
+
+# 4 "calibration.h"
+void initCal(void);
+void calibrateCNY(unsigned int channel);
+unsigned int getCalCNY(unsigned int channel);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -4266,33 +4276,25 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 4 "CNY.h"
-void initCNY(void);
-void cnyInterrupt(void);
-unsigned int getCNY(unsigned char channel);
+# 9 "calibration.c"
+unsigned int mins[5], maxs[5];
 
-# 10 "CNY.c"
-const unsigned char channels[] = {4, 3, 2, 1, 0};
-
-# 45
-void cnyInterrupt(void){return;}
-void initCNY(void){
-TRISAbits.RA5 = 1;
-TRISAbits.RA3 = 1;
-TRISAbits.RA2 = 1;
-TRISAbits.RA1 = 1;
-TRISAbits.RA0 = 1;
-ADCON1 = 0x0A;
-ADCON2 = 0xA5;
+void initCal(void){
+for(int i = 0; i < 5; i++){
+mins[i] = 1024;
+maxs[i] = 0;
+}
 }
 
-unsigned int getCNY(unsigned char channel){
-if(channel >= 5) return 0;
-ADCON0bits.CHS = channels[channel];
-ADCON0bits.ADON = 1;
-ADCON0bits.GO = 1;
-while(ADCON0bits.GO) continue;
-ADCON0bits.ADON = 0;
-return ((ADRESH << 8) + ADRESL);
+void calibrateCNY(unsigned int channel){
+unsigned int val = getCNY(channel);
+mins[channel] = ((val) < (mins[channel]) ? (val) : (mins[channel]));
+maxs[channel] = ((val) > (maxs[channel]) ? (val) : (maxs[channel]));
 }
 
+unsigned int getCalCNY(unsigned int channel){
+unsigned int val = getCNY(channel);
+mins[channel] = ((val) < (mins[channel]) ? (val) : (mins[channel]));
+maxs[channel] = ((val) > (maxs[channel]) ? (val) : (maxs[channel]));
+val = (0 + ((1000 - 0) / (maxs[channel] - mins[channel])) * (val - mins[channel]));
+}

@@ -60,6 +60,6 @@ unsigned int getCNY(unsigned char channel){
     ADCON0bits.GO = 1;
     while(ADCON0bits.GO) continue;
     ADCON0bits.ADON = 0;
-    return ((ADRESH << 8) + ADRESL);
+    return (unsigned int)((ADRESH << 8) | ADRESL);
 }
 #endif

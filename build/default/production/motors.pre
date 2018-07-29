@@ -4269,6 +4269,8 @@ extern __nonreentrant void _delay3(unsigned char);
 # 4 "motors.h"
 void initMotors(void);
 void setMotors(signed int left, signed int right);
+void setLMotor(signed int speed);
+void setRMotor(signed int speed);
 
 # 14 "motors.c"
 void initMotors(void){
@@ -4278,8 +4280,8 @@ TRISCbits.TRISC0 = 0;
 LATCbits.LATC0 = 0;
 LATCbits.LATC6 = 0;
 
-TRISCbits.TRISC2 = 0;
 TRISCbits.TRISC1 = 0;
+TRISCbits.TRISC2 = 0;
 
 PR2 = 249;
 CCPR1L = 0;
@@ -4292,16 +4294,26 @@ CCP2CONbits.CCP2M = 0xF;
 }
 
 void setMotors(signed int left, signed int right){
-LATCbits.LATC6 = left <= 0;
-LATCbits.LATC0 = right <= 0;
-if(left < 0) left = 1000 - left;
-if(right < 0) right = 1000 - right;
-if(left > 1000) left = 1000;
-if(right > 1000) right = 1000;
-left = left * 1024 / 1000;
-right = right * 1024 / 1000;
-CCP2CONbits.DC2B = left & 3;
-CCP1CONbits.DC1B = right & 3;
-CCPR2L = left >> 2;
-CCPR1L = right >> 2;
+setLMotor(left);
+setRMotor(right);
+}
+
+void setLMotor(signed int speed){
+LATCbits.LATC6 = speed < 0;
+if(speed < -1000) speed = -1000;
+if(speed > 1000) speed = 1000;
+if(speed < 0) speed += 1000;
+
+CCP1CONbits.DC1B = speed & 3;
+CCPR1L = speed >> 2;
+}
+
+void setRMotor(signed int speed){
+LATCbits.LATC0 = speed < 0;
+if(speed < -1000) speed = -1000;
+if(speed > 1000) speed = 1000;
+if(speed < 0) speed += 1000;
+
+CCP2CONbits.DC2B = speed & 3;
+CCPR2L = speed >> 2;
 }

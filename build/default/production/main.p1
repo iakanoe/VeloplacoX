@@ -1,13 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
 "6 calibration.h
 [v _getCalCNY `(ui ~T0 @X0 0 ef1`ui ]
-"31 main.c
-[c E3370 0 1 .. ]
-[n E3370 . MENU RUN  ]
+"37 main.c
+[c E3378 0 1 2 .. ]
+[n E3378 . MENU CALIB RUN  ]
 "5 motors.h
 [v _setMotors `(v ~T0 @X0 0 ef2`i`i ]
 "5 ui.h
 [v _setLEDs `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"6
+[v _getBTN1 `(b ~T0 @X0 0 ef ]
+"7
+[v _getBTN2 `(b ~T0 @X0 0 ef ]
+"5 calibration.h
+[v _calibrateCNY `(v ~T0 @X0 0 ef1`ui ]
 "7405 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
 [s S315 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S315 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -31,6 +37,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _initMotors `(v ~T0 @X0 0 ef ]
 "4 CNY.h
 [v _initCNY `(v ~T0 @X0 0 ef ]
+"4 calibration.h
+[v _initCal `(v ~T0 @X0 0 ef ]
 "5 timer.h
 [v _timerInterrupt `(v ~T0 @X0 0 ef ]
 "5 CNY.h
@@ -125,6 +133,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;ui.h: 14: bit getLEDG(void);
 [; ;motors.h: 4: void initMotors(void);
 [; ;motors.h: 5: void setMotors(signed int left, signed int right);
+[; ;motors.h: 6: void setLMotor(signed int speed);
+[; ;motors.h: 7: void setRMotor(signed int speed);
 [; ;CNY.h: 4: void initCNY(void);
 [; ;CNY.h: 5: void cnyInterrupt(void);
 [; ;CNY.h: 6: unsigned int getCNY(unsigned char channel);
@@ -3236,38 +3246,63 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;main.c: 9: enum {
-[; ;main.c: 10: MENU,
-[; ;main.c: 11: RUN
-[; ;main.c: 12: };
-"14 main.c
-[v _calcPID `(i ~T0 @X0 1 ef3`f`f`f ]
+"9 main.c
+[v _kp `Cf ~T0 @X0 1 e ]
+[i _kp
+-> -> 1 `i `f
+]
+[; ;main.c: 9: const float kp = 1;
+"10
+[v _ki `Cf ~T0 @X0 1 e ]
+[i _ki
+-> -> 1 `i `f
+]
+[; ;main.c: 10: const float ki = 1;
+"11
+[v _kd `Cf ~T0 @X0 1 e ]
+[i _kd
+-> -> 1 `i `f
+]
+[; ;main.c: 11: const float kd = 1;
+"12
+[v _maxSpeed `Ci ~T0 @X0 1 e ]
+[i _maxSpeed
+-> 500 `i
+]
+[; ;main.c: 12: const int maxSpeed = 500;
+[; ;main.c: 14: enum {
+[; ;main.c: 15: MENU,
+[; ;main.c: 16: CALIB,
+[; ;main.c: 17: RUN
+[; ;main.c: 18: };
+"20
+[v _calcPID `(i ~T0 @X0 1 ef3`Cf`Cf`Cf ]
 {
-[; ;main.c: 14: int calcPID(float Kp, float Ki, float Kd){
+[; ;main.c: 20: int calcPID(const float Kp, const float Ki, const float Kd){
 [e :U _calcPID ]
-[v _Kp `f ~T0 @X0 1 r1 ]
-[v _Ki `f ~T0 @X0 1 r2 ]
-[v _Kd `f ~T0 @X0 1 r3 ]
+[v _Kp `Cf ~T0 @X0 1 r1 ]
+[v _Ki `Cf ~T0 @X0 1 r2 ]
+[v _Kd `Cf ~T0 @X0 1 r3 ]
 [f ]
-"15
-[v F3377 `i ~T0 @X0 1 s prevErr ]
-[i F3377
+"21
+[v F3386 `i ~T0 @X0 1 s prevErr ]
+[i F3386
 -> 0 `i
 ]
-[v F3378 `i ~T0 @X0 1 s integral ]
-[i F3378
+[v F3387 `i ~T0 @X0 1 s integral ]
+[i F3387
 -> 0 `i
 ]
-[v F3379 `i ~T0 @X0 1 s err ]
-"16
+[v F3388 `i ~T0 @X0 1 s err ]
+"22
 [v _s1 `ul ~T0 @X0 1 a ]
-[; ;main.c: 15: static int prevErr = 0, integral = 0, err;
-[; ;main.c: 16: unsigned long long s1 = 0, s2 = 0;
+[; ;main.c: 21: static int prevErr = 0, integral = 0, err;
+[; ;main.c: 22: unsigned long long s1 = 0, s2 = 0;
 [e = _s1 -> -> -> 0 `i `l `ul ]
 [v _s2 `ul ~T0 @X0 1 a ]
 [e = _s2 -> -> -> 0 `i `l `ul ]
-[; ;main.c: 17: for(int i = 0; i < 5; i++){
-"17
+[; ;main.c: 23: for(int i = 0; i < 5; i++){
+"23
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
@@ -3275,175 +3310,314 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 324  ]
 [e :U 323 ]
 {
-"18
-[v _val `ui ~T0 @X0 1 a ]
-[; ;main.c: 18: unsigned int val = getCalCNY(i);
+"24
+[v _val `Cui ~T0 @X0 1 a ]
+[; ;main.c: 24: const unsigned int val = getCalCNY(i);
 [e = _val ( _getCalCNY (1 -> _i `ui ]
-[; ;main.c: 19: s1 += val * (i + 1) * 100;
-"19
+[; ;main.c: 25: s1 += val * (i + 1) * 100;
+"25
 [e =+ _s1 -> * * _val -> + _i -> 1 `i `ui -> -> 100 `i `ui `ul ]
-[; ;main.c: 20: s2 += val;
-"20
+[; ;main.c: 26: s2 += val;
+"26
 [e =+ _s2 -> _val `ul ]
-"21
+"27
 }
-"17
+"23
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 5 `i 323  ]
 [e :U 324 ]
-"21
+"27
 }
-"22
-[v _pos `i ~T0 @X0 1 a ]
-[; ;main.c: 21: }
-[; ;main.c: 22: int pos = s1 / s2;
-[e = _pos -> / _s1 _s2 `i ]
-[; ;main.c: 23: prevErr = err;
-"23
-[e = F3377 F3379 ]
-[; ;main.c: 24: err = 300 - pos;
-"24
-[e = F3379 - -> 300 `i _pos ]
-[; ;main.c: 25: integral += err;
-"25
-[e =+ F3378 F3379 ]
-[; ;main.c: 26: return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
-"26
-[e ) -> + + -> -> * _Kp -> F3379 `f `i `f * _Ki -> F3378 `f * _Kd -> - F3379 F3377 `f `i ]
-[e $UE 322  ]
-[; ;main.c: 28: }
 "28
+[v _pos `Ci ~T0 @X0 1 a ]
+[; ;main.c: 27: }
+[; ;main.c: 28: const int pos = s1 / s2;
+[e = _pos -> / _s1 _s2 `i ]
+[; ;main.c: 29: prevErr = err;
+"29
+[e = F3386 F3388 ]
+[; ;main.c: 30: err = 300 - pos;
+"30
+[e = F3388 - -> 300 `i _pos ]
+[; ;main.c: 31: integral += err;
+"31
+[e =+ F3387 F3388 ]
+[; ;main.c: 32: return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
+"32
+[e ) -> + + -> -> * _Kp -> F3388 `f `i `f * _Ki -> F3387 `f * _Kd -> - F3388 F3386 `f `i ]
+[e $UE 322  ]
+[; ;main.c: 34: }
+"34
 [e :UE 322 ]
 }
-"30
+"36
 [v _loop `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 30: void loop(){
+[; ;main.c: 36: void loop(){
 [e :U _loop ]
 [f ]
-"31
-[v F3390 `uc ~T0 @X0 1 s status ]
-[i F3390
--> . `E3370 0 `uc
+"37
+[v F3399 `uc ~T0 @X0 1 s status ]
+[i F3399
+-> . `E3378 0 `uc
 ]
-"32
+"38
+[v F3400 `b ~T0 @X0 1 s cal ]
+[i F3400
+-> 0 `i
+]
+"39
 [v _pid `i ~T0 @X0 1 a ]
-[; ;main.c: 31: static char status = MENU;
-[; ;main.c: 32: int pid;
-[; ;main.c: 33: switch(status){
-"33
+[; ;main.c: 37: static char status = MENU;
+[; ;main.c: 38: static bit cal = 0;
+[; ;main.c: 39: int pid;
+[; ;main.c: 40: switch(status){
+"40
 [e $U 328  ]
 {
-[; ;main.c: 34: case MENU:
-"34
+[; ;main.c: 41: case MENU:
+"41
 [e :U 329 ]
-[; ;main.c: 35: setMotors(0, 0);
-"35
-[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
-[; ;main.c: 36: setLEDs(1, 0, 0);
-"36
-[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc ]
-[; ;main.c: 40: break;
-"40
-[e $U 327  ]
-[; ;main.c: 42: case RUN:
+[; ;main.c: 42: setMotors(0, 0);
 "42
-[e :U 330 ]
-[; ;main.c: 43: pid = calcPID(1, 0, 0);
+[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
+[; ;main.c: 43: setLEDs(1, cal, 0);
 "43
-[e = _pid ( _calcPID (3 , , -> -> 1 `i `f -> -> 0 `i `f -> -> 0 `i `f ]
-[; ;main.c: 44: if(pid < 0) setMotors(( pid), 0);
-"44
-[e $ ! < _pid -> 0 `i 331  ]
-[e ( _setMotors (2 , _pid -> 0 `i ]
-[e $U 332  ]
-"45
-[e :U 331 ]
-[; ;main.c: 45: else setMotors(0 , ( pid));
-[e ( _setMotors (2 , -> 0 `i _pid ]
-[e :U 332 ]
-[; ;main.c: 46: break;
+[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> F3400 `i `uc -> -> 0 `i `uc ]
+[; ;main.c: 46: if(getBTN1()){
 "46
-[e $U 327  ]
+[e $ ! ( _getBTN1 ..  330  ]
+{
+[; ;main.c: 47: while(getBTN1()) continue;
 "47
-}
-[; ;main.c: 47: }
-[e $U 327  ]
-"33
-[e :U 328 ]
-[e [\ F3390 , $ -> . `E3370 0 `uc 329
- , $ -> . `E3370 1 `uc 330
- 327 ]
-"47
-[e :U 327 ]
-[; ;main.c: 48: }
+[e $U 331  ]
+[e :U 332 ]
+[e $U 331  ]
+[e :U 331 ]
+[e $ ( _getBTN1 ..  332  ]
+[e :U 333 ]
+[; ;main.c: 48: cal = 1;
 "48
+[e = F3400 -> -> 1 `i `b ]
+[; ;main.c: 49: status = CALIB;
+"49
+[e = F3399 -> . `E3378 1 `uc ]
+[; ;main.c: 50: break;
+"50
+[e $U 327  ]
+"51
+}
+[e :U 330 ]
+[; ;main.c: 51: }
+[; ;main.c: 52: if(getBTN2()){
+"52
+[e $ ! ( _getBTN2 ..  334  ]
+{
+[; ;main.c: 53: if(cal) status = RUN;
+"53
+[e $ ! F3400 335  ]
+[e = F3399 -> . `E3378 2 `uc ]
+[e $U 336  ]
+"54
+[e :U 335 ]
+[; ;main.c: 54: else {
+{
+[; ;main.c: 55: setMotors(1000, 1000);
+"55
+[e ( _setMotors (2 , -> 1000 `i -> 1000 `i ]
+[; ;main.c: 56: setLEDs(1, 1, 1);
+"56
+[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> 1 `i `uc -> -> 1 `i `uc ]
+"57
+}
+[e :U 336 ]
+[; ;main.c: 57: }
+[; ;main.c: 58: while(getBTN2()) continue;
+"58
+[e $U 337  ]
+[e :U 338 ]
+[e $U 337  ]
+[e :U 337 ]
+[e $ ( _getBTN2 ..  338  ]
+[e :U 339 ]
+[; ;main.c: 59: break;
+"59
+[e $U 327  ]
+"60
+}
+[e :U 334 ]
+[; ;main.c: 60: }
+[; ;main.c: 61: break;
+"61
+[e $U 327  ]
+[; ;main.c: 63: case CALIB:
+"63
+[e :U 340 ]
+[; ;main.c: 64: setLEDs(0, 1, 0);
+"64
+[e ( _setLEDs (3 , , -> -> 0 `i `uc -> -> 1 `i `uc -> -> 0 `i `uc ]
+[; ;main.c: 65: setMotors(-250, 250);
+"65
+[e ( _setMotors (2 , -U -> 250 `i -> 250 `i ]
+[; ;main.c: 66: for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
+"66
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 10000 `i 341  ]
+[e $U 342  ]
+[e :U 341 ]
+[e ( _calibrateCNY (1 -> % _i -> 5 `i `ui ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 10000 `i 341  ]
+[e :U 342 ]
+}
+[; ;main.c: 67: setMotors(250, -250);
+"67
+[e ( _setMotors (2 , -> 250 `i -U -> 250 `i ]
+[; ;main.c: 68: for(int i = 0; i < 20000; i++) calibrateCNY(i % 5);
+"68
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 20000 `i 344  ]
+[e $U 345  ]
+[e :U 344 ]
+[e ( _calibrateCNY (1 -> % _i -> 5 `i `ui ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 20000 `i 344  ]
+[e :U 345 ]
+}
+[; ;main.c: 69: setMotors(-250, 250);
+"69
+[e ( _setMotors (2 , -U -> 250 `i -> 250 `i ]
+[; ;main.c: 70: for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
+"70
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 10000 `i 347  ]
+[e $U 348  ]
+[e :U 347 ]
+[e ( _calibrateCNY (1 -> % _i -> 5 `i `ui ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 10000 `i 347  ]
+[e :U 348 ]
+}
+[; ;main.c: 71: setMotors(0, 0);
+"71
+[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
+[; ;main.c: 72: status = MENU;
+"72
+[e = F3399 -> . `E3378 0 `uc ]
+[; ;main.c: 73: break;
+"73
+[e $U 327  ]
+[; ;main.c: 75: case RUN:
+"75
+[e :U 350 ]
+[; ;main.c: 76: setLEDs(0, 0, 1);
+"76
+[e ( _setLEDs (3 , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc ]
+[; ;main.c: 77: pid = calcPID(kp, ki, kd);
+"77
+[e = _pid ( _calcPID (3 , , _kp _ki _kd ]
+[; ;main.c: 78: if(pid < 0) setMotors((maxSpeed - pid), maxSpeed);
+"78
+[e $ ! < _pid -> 0 `i 351  ]
+[e ( _setMotors (2 , - _maxSpeed _pid _maxSpeed ]
+[e $U 352  ]
+"79
+[e :U 351 ]
+[; ;main.c: 79: else setMotors(maxSpeed, (maxSpeed - pid));
+[e ( _setMotors (2 , _maxSpeed - _maxSpeed _pid ]
+[e :U 352 ]
+[; ;main.c: 80: break;
+"80
+[e $U 327  ]
+"81
+}
+[; ;main.c: 81: }
+[e $U 327  ]
+"40
+[e :U 328 ]
+[e [\ F3399 , $ -> . `E3378 0 `uc 329
+ , $ -> . `E3378 1 `uc 340
+ , $ -> . `E3378 2 `uc 350
+ 327 ]
+"81
+[e :U 327 ]
+[; ;main.c: 82: }
+"82
 [e :UE 326 ]
 }
-"50
+"84
 [v _initInterrupts `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 50: void initInterrupts(void){
+[; ;main.c: 84: void initInterrupts(void){
 [e :U _initInterrupts ]
 [f ]
-[; ;main.c: 51: INTCONbits.PEIE = 1;
-"51
+[; ;main.c: 85: INTCONbits.PEIE = 1;
+"85
 [e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;main.c: 52: INTCONbits.GIE = 1;
-"52
+[; ;main.c: 86: INTCONbits.GIE = 1;
+"86
 [e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;main.c: 53: }
-"53
-[e :UE 333 ]
+[; ;main.c: 87: }
+"87
+[e :UE 353 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"54
+"88
 [v _main `(v ~T0 @X0 1 ef ]
 {
-[; ;main.c: 54: void main(){
+[; ;main.c: 88: void main(){
 [e :U _main ]
 [f ]
-[; ;main.c: 55: initInterrupts();
-"55
+[; ;main.c: 89: initInterrupts();
+"89
 [e ( _initInterrupts ..  ]
-[; ;main.c: 56: initTimer();
-"56
+[; ;main.c: 90: initTimer();
+"90
 [e ( _initTimer ..  ]
-[; ;main.c: 57: initUI();
-"57
+[; ;main.c: 91: initUI();
+"91
 [e ( _initUI ..  ]
-[; ;main.c: 58: initMotors();
-"58
+[; ;main.c: 92: initMotors();
+"92
 [e ( _initMotors ..  ]
-[; ;main.c: 59: initCNY();
-"59
+[; ;main.c: 93: initCNY();
+"93
 [e ( _initCNY ..  ]
-[; ;main.c: 60: while(1) loop();
-"60
-[e :U 336 ]
+[; ;main.c: 94: initCal();
+"94
+[e ( _initCal ..  ]
+[; ;main.c: 95: while(1) loop();
+"95
+[e :U 356 ]
 [e ( _loop ..  ]
-[e :U 335 ]
-[e $U 336  ]
-[e :U 337 ]
-[; ;main.c: 61: }
-"61
-[e :UE 334 ]
+[e :U 355 ]
+[e $U 356  ]
+[e :U 357 ]
+[; ;main.c: 96: }
+"96
+[e :UE 354 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
-[v F3397 `(v ~T0 @X0 1 tf ]
-"62
-[v _ISR `IF3397 ~T0 @X0 1 e ]
+[v F3410 `(v ~T0 @X0 1 tf ]
+"97
+[v _ISR `IF3410 ~T0 @X0 1 e ]
 {
-[; ;main.c: 62: void interrupt ISR(void){
+[; ;main.c: 97: void interrupt ISR(void){
 [e :U _ISR ]
 [f ]
-[; ;main.c: 63: timerInterrupt();
-"63
+[; ;main.c: 98: timerInterrupt();
+"98
 [e ( _timerInterrupt ..  ]
-[; ;main.c: 64: cnyInterrupt();
-"64
+[; ;main.c: 99: cnyInterrupt();
+"99
 [e ( _cnyInterrupt ..  ]
-[; ;main.c: 65: }
-"65
-[e :UE 338 ]
+[; ;main.c: 100: }
+"100
+[e :UE 358 ]
 }

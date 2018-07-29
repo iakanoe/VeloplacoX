@@ -3170,18 +3170,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;motors.c: 14: void initMotors(void){
 [e :U _initMotors ]
 [f ]
-[; ;motors.c: 15: TRISCbits.TRISC6 = 0;
+[; ;motors.c: 15: TRISCbits.TRISC0 = 0;
 "15
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 16: TRISCbits.TRISC0 = 0;
-"16
 [e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 18: LATCbits.LATC0 = 0;
+[; ;motors.c: 16: TRISCbits.TRISC6 = 0;
+"16
+[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
+[; ;motors.c: 18: LATCbits.LATC6 = 0;
 "18
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 19: LATCbits.LATC6 = 0;
-"19
 [e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
+[; ;motors.c: 19: LATCbits.LATC0 = 0;
+"19
+[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
 [; ;motors.c: 21: TRISCbits.TRISC1 = 0;
 "21
 [e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
@@ -3241,9 +3241,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _setLMotor ]
 [v _speed `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 40: LATCbits.LATC6 = speed < 0;
+[; ;motors.c: 40: LATCbits.LATC0 = speed < 0;
 "40
-[e = . . _LATCbits 0 4 -> -> < _speed -> 0 `i `i `uc ]
+[e = . . _LATCbits 0 0 -> -> < _speed -> 0 `i `i `uc ]
 [; ;motors.c: 41: if(speed < -1000) speed = -1000;
 "41
 [e $ ! < _speed -U -> 1000 `i 325  ]
@@ -3276,9 +3276,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U _setRMotor ]
 [v _speed `i ~T0 @X0 1 r1 ]
 [f ]
-[; ;motors.c: 50: LATCbits.LATC0 = speed < 0;
+[; ;motors.c: 50: LATCbits.LATC6 = speed < 0;
 "50
-[e = . . _LATCbits 0 0 -> -> < _speed -> 0 `i `i `uc ]
+[e = . . _LATCbits 0 4 -> -> < _speed -> 0 `i `i `uc ]
 [; ;motors.c: 51: if(speed < -1000) speed = -1000;
 "51
 [e $ ! < _speed -U -> 1000 `i 329  ]

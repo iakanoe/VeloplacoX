@@ -1,60 +1,146 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"3266 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
-[s S126 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S126 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
-"3274
-[s S127 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S127 . RC0 RC1 RC2 . RC6 RC7 ]
-"3265
-[u S125 `S126 1 `S127 1 ]
-[n S125 . . . ]
-"3283
-[v _TRISCbits `VS125 ~T0 @X0 0 e@3988 ]
-"2763
-[s S111 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S111 . LATC0 LATC1 LATC2 . LATC6 LATC7 ]
-"2771
-[s S112 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S112 . LC0 LC1 LC2 . LC6 LC7 ]
-"2762
-[u S110 `S111 1 `S112 1 ]
-[n S110 . . . ]
-"2780
-[v _LATCbits `VS110 ~T0 @X0 0 e@3979 ]
-"6115
-[v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"5313
-[v _CCPR1L `Vuc ~T0 @X0 0 e@4030 ]
-"5228
-[v _CCPR2L `Vuc ~T0 @X0 0 e@4027 ]
-"5248
-[s S218 :4 `uc 1 :2 `uc 1 ]
-[n S218 . CCP1M DC1B ]
-"5252
-[s S219 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S219 . CCP1M0 CCP1M1 CCP1M2 CCP1M3 DC1B0 DC1B1 ]
-"5247
-[u S217 `S218 1 `S219 1 ]
-[n S217 . . . ]
-"5261
-[v _CCP1CONbits `VS217 ~T0 @X0 0 e@4029 ]
-"5163
-[s S215 :4 `uc 1 :2 `uc 1 ]
-[n S215 . CCP2M DC2B ]
-"5167
-[s S216 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S216 . CCP2M0 CCP2M1 CCP2M2 CCP2M3 DC2B0 DC2B1 ]
-"5162
-[u S214 `S215 1 `S216 1 ]
-[n S214 . . . ]
-"5176
-[v _CCP2CONbits `VS214 ~T0 @X0 0 e@4026 ]
-"6017
-[v _T2CON `Vuc ~T0 @X0 0 e@4042 ]
-"6 motors.h
-[v _setLMotor `(v ~T0 @X0 0 ef1`i ]
+"6 calibration.h
+[v _getCalCNY `(ui ~T0 @X0 0 ef1`ui ]
+"37 main.c
+[c E3378 0 1 2 .. ]
+[n E3378 . MENU CALIB RUN  ]
+"5 motors.h
+[v _setMotors `(v ~T0 @X0 0 ef2`i`i ]
+"5 ui.h
+[v _setLEDs `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"6
+[v _getBTN1 `(b ~T0 @X0 0 ef ]
 "7
-[v _setRMotor `(v ~T0 @X0 0 ef1`i ]
+[v _getBTN2 `(b ~T0 @X0 0 ef ]
+"5 calibration.h
+[v _calibrateCNY `(v ~T0 @X0 0 ef1`ui ]
+"7405 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+[s S315 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S315 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
+"7415
+[s S316 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S316 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
+"7425
+[s S317 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S317 . . GIEL GIEH ]
+"7404
+[u S314 `S315 1 `S316 1 `S317 1 ]
+[n S314 . . . . ]
+"7431
+[v _INTCONbits `VS314 ~T0 @X0 0 e@4082 ]
+[p mainexit ]
+"6 timer.h
+[v _initTimer `(v ~T0 @X0 0 ef ]
+"4 ui.h
+[v _initUI `(v ~T0 @X0 0 ef ]
+"4 motors.h
+[v _initMotors `(v ~T0 @X0 0 ef ]
+"4 CNY.h
+[v _initCNY `(v ~T0 @X0 0 ef ]
+"4 calibration.h
+[v _initCal `(v ~T0 @X0 0 ef ]
+"5 timer.h
+[v _timerInterrupt `(v ~T0 @X0 0 ef ]
+"5 CNY.h
+[v _cnyInterrupt `(v ~T0 @X0 0 ef ]
+"3 pragma.h
+[p x PLLDIV=5 ]
+"4
+[p x CPUDIV=OSC1_PLL2 ]
+"5
+[p x USBDIV=2 ]
+"6
+[p x FOSC=HSPLL_HS ]
+"7
+[p x FCMEN=OFF ]
+"8
+[p x IESO=OFF ]
+"9
+[p x PWRT=OFF ]
+"10
+[p x BOR=OFF ]
+"11
+[p x BORV=0 ]
+"12
+[p x VREGEN=OFF ]
+"13
+[p x WDT=OFF ]
+"14
+[p x WDTPS=1 ]
+"15
+[p x CCP2MX=ON ]
+"16
+[p x PBADEN=ON ]
+"17
+[p x LPT1OSC=OFF ]
+"18
+[p x MCLRE=OFF ]
+"19
+[p x STVREN=OFF ]
+"20
+[p x LVP=OFF ]
+"21
+[p x XINST=OFF ]
+"22
+[p x CP0=OFF ]
+"23
+[p x CP1=OFF ]
+"24
+[p x CP2=OFF ]
+"25
+[p x CP3=OFF ]
+"26
+[p x CPB=OFF ]
+"27
+[p x CPD=OFF ]
+"28
+[p x WRT0=OFF ]
+"29
+[p x WRT1=OFF ]
+"30
+[p x WRT2=OFF ]
+"31
+[p x WRT3=OFF ]
+"32
+[p x WRTC=OFF ]
+"33
+[p x WRTB=OFF ]
+"34
+[p x WRTD=OFF ]
+"35
+[p x EBTR0=OFF ]
+"36
+[p x EBTR1=OFF ]
+"37
+[p x EBTR2=OFF ]
+"38
+[p x EBTR3=OFF ]
+"39
+[p x EBTRB=OFF ]
+[; ;timer.h: 4: unsigned long millis(void);
+[; ;timer.h: 5: void timerInterrupt(void);
+[; ;timer.h: 6: void initTimer(void);
+[; ;ui.h: 4: void initUI(void);
+[; ;ui.h: 5: void setLEDs(char r, char y, char g);
+[; ;ui.h: 6: bit getBTN1(void);
+[; ;ui.h: 7: bit getBTN2(void);
+[; ;ui.h: 8: bit getBTNs(void);
+[; ;ui.h: 9: void setLEDR(char v);
+[; ;ui.h: 10: void setLEDY(char v);
+[; ;ui.h: 11: void setLEDG(char v);
+[; ;ui.h: 12: bit getLEDR(void);
+[; ;ui.h: 13: bit getLEDY(void);
+[; ;ui.h: 14: bit getLEDG(void);
+[; ;motors.h: 4: void initMotors(void);
+[; ;motors.h: 5: void setMotors(signed int left, signed int right);
+[; ;motors.h: 6: void setLMotor(signed int speed);
+[; ;motors.h: 7: void setRMotor(signed int speed);
+[; ;CNY.h: 4: void initCNY(void);
+[; ;CNY.h: 5: void cnyInterrupt(void);
+[; ;CNY.h: 6: unsigned int getCNY(unsigned char channel);
+[; ;calibration.h: 4: void initCal(void);
+[; ;calibration.h: 5: void calibrateCNY(unsigned int channel);
+[; ;calibration.h: 6: unsigned int getCalCNY(unsigned int channel);
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3160,147 +3246,362 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;motors.h: 4: void initMotors(void);
-[; ;motors.h: 5: void setMotors(signed int left, signed int right);
-[; ;motors.h: 6: void setLMotor(signed int speed);
-[; ;motors.h: 7: void setRMotor(signed int speed);
-"14 motors.c
-[v _initMotors `(v ~T0 @X0 1 ef ]
+"9 main.c
+[v _kp `Cf ~T0 @X0 1 e ]
+[i _kp
+-> -> 1 `i `f
+]
+[; ;main.c: 9: const float kp = 1;
+"10
+[v _ki `Cf ~T0 @X0 1 e ]
+[i _ki
+-> -> 1 `i `f
+]
+[; ;main.c: 10: const float ki = 1;
+"11
+[v _kd `Cf ~T0 @X0 1 e ]
+[i _kd
+-> -> 1 `i `f
+]
+[; ;main.c: 11: const float kd = 1;
+"12
+[v _maxSpeed `Ci ~T0 @X0 1 e ]
+[i _maxSpeed
+-> 500 `i
+]
+[; ;main.c: 12: const int maxSpeed = 500;
+[; ;main.c: 14: enum {
+[; ;main.c: 15: MENU,
+[; ;main.c: 16: CALIB,
+[; ;main.c: 17: RUN
+[; ;main.c: 18: };
+"20
+[v _calcPID `(i ~T0 @X0 1 ef3`Cf`Cf`Cf ]
 {
-[; ;motors.c: 14: void initMotors(void){
-[e :U _initMotors ]
+[; ;main.c: 20: int calcPID(const float Kp, const float Ki, const float Kd){
+[e :U _calcPID ]
+[v _Kp `Cf ~T0 @X0 1 r1 ]
+[v _Ki `Cf ~T0 @X0 1 r2 ]
+[v _Kd `Cf ~T0 @X0 1 r3 ]
 [f ]
-[; ;motors.c: 15: TRISCbits.TRISC6 = 0;
-"15
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 16: TRISCbits.TRISC0 = 0;
-"16
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 18: LATCbits.LATC0 = 0;
-"18
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 19: LATCbits.LATC6 = 0;
-"19
-[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 21: TRISCbits.TRISC1 = 0;
 "21
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 22: TRISCbits.TRISC2 = 0;
+[v F3386 `i ~T0 @X0 1 s prevErr ]
+[i F3386
+-> 0 `i
+]
+[v F3387 `i ~T0 @X0 1 s integral ]
+[i F3387
+-> 0 `i
+]
+[v F3388 `i ~T0 @X0 1 s err ]
 "22
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;motors.c: 24: PR2 = 249;
+[v _s1 `ul ~T0 @X0 1 a ]
+[; ;main.c: 21: static int prevErr = 0, integral = 0, err;
+[; ;main.c: 22: unsigned long long s1 = 0, s2 = 0;
+[e = _s1 -> -> -> 0 `i `l `ul ]
+[v _s2 `ul ~T0 @X0 1 a ]
+[e = _s2 -> -> -> 0 `i `l `ul ]
+[; ;main.c: 23: for(int i = 0; i < 5; i++){
+"23
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e $U 324  ]
+[e :U 323 ]
+{
 "24
-[e = _PR2 -> -> 249 `i `uc ]
-[; ;motors.c: 25: CCPR1L = 0;
+[v _val `Cui ~T0 @X0 1 a ]
+[; ;main.c: 24: const unsigned int val = getCalCNY(i);
+[e = _val ( _getCalCNY (1 -> _i `ui ]
+[; ;main.c: 25: s1 += val * (i + 1) * 100;
 "25
-[e = _CCPR1L -> -> 0 `i `uc ]
-[; ;motors.c: 26: CCPR2L = 0;
+[e =+ _s1 -> * * _val -> + _i -> 1 `i `ui -> -> 100 `i `ui `ul ]
+[; ;main.c: 26: s2 += val;
 "26
-[e = _CCPR2L -> -> 0 `i `uc ]
-[; ;motors.c: 27: CCP1CONbits.DC1B = 0;
+[e =+ _s2 -> _val `ul ]
 "27
-[e = . . _CCP1CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 28: CCP2CONbits.DC2B = 0;
+}
+"23
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 323  ]
+[e :U 324 ]
+"27
+}
 "28
-[e = . . _CCP2CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 29: T2CON = 0x05;
+[v _pos `Ci ~T0 @X0 1 a ]
+[; ;main.c: 27: }
+[; ;main.c: 28: const int pos = s1 / s2;
+[e = _pos -> / _s1 _s2 `i ]
+[; ;main.c: 29: prevErr = err;
 "29
-[e = _T2CON -> -> 5 `i `uc ]
-[; ;motors.c: 30: CCP1CONbits.CCP1M = 0xF;
+[e = F3386 F3388 ]
+[; ;main.c: 30: err = 300 - pos;
 "30
-[e = . . _CCP1CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 31: CCP2CONbits.CCP2M = 0xF;
+[e = F3388 - -> 300 `i _pos ]
+[; ;main.c: 31: integral += err;
 "31
-[e = . . _CCP2CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 32: }
+[e =+ F3387 F3388 ]
+[; ;main.c: 32: return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
 "32
+[e ) -> + + -> -> * _Kp -> F3388 `f `i `f * _Ki -> F3387 `f * _Kd -> - F3388 F3386 `f `i ]
+[e $UE 322  ]
+[; ;main.c: 34: }
+"34
 [e :UE 322 ]
 }
-"34
-[v _setMotors `(v ~T0 @X0 1 ef2`i`i ]
-{
-[; ;motors.c: 34: void setMotors(signed int left, signed int right){
-[e :U _setMotors ]
-[v _left `i ~T0 @X0 1 r1 ]
-[v _right `i ~T0 @X0 1 r2 ]
-[f ]
-[; ;motors.c: 35: setLMotor(left);
-"35
-[e ( _setLMotor (1 _left ]
-[; ;motors.c: 36: setRMotor(right);
 "36
-[e ( _setRMotor (1 _right ]
-[; ;motors.c: 37: }
+[v _loop `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 36: void loop(){
+[e :U _loop ]
+[f ]
 "37
-[e :UE 323 ]
-}
+[v F3399 `uc ~T0 @X0 1 s status ]
+[i F3399
+-> . `E3378 0 `uc
+]
+"38
+[v F3400 `b ~T0 @X0 1 s cal ]
+[i F3400
+-> 0 `i
+]
 "39
-[v _setLMotor `(v ~T0 @X0 1 ef1`i ]
-{
-[; ;motors.c: 39: void setLMotor(signed int speed){
-[e :U _setLMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
-[f ]
-[; ;motors.c: 40: LATCbits.LATC6 = speed < 0;
+[v _pid `i ~T0 @X0 1 a ]
+[; ;main.c: 37: static char status = MENU;
+[; ;main.c: 38: static bit cal = 0;
+[; ;main.c: 39: int pid;
+[; ;main.c: 40: switch(status){
 "40
-[e = . . _LATCbits 0 4 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 41: if(speed < -1000) speed = -1000;
-"41
-[e $ ! < _speed -U -> 1000 `i 325  ]
-[e = _speed -U -> 1000 `i ]
-[e :U 325 ]
-[; ;motors.c: 42: if(speed > 1000) speed = 1000;
-"42
-[e $ ! > _speed -> 1000 `i 326  ]
-[e = _speed -> 1000 `i ]
-[e :U 326 ]
-[; ;motors.c: 43: if(speed < 0) speed += 1000;
-"43
-[e $ ! < _speed -> 0 `i 327  ]
-[e =+ _speed -> 1000 `i ]
-[e :U 327 ]
-[; ;motors.c: 45: CCP1CONbits.DC1B = speed & 3;
-"45
-[e = . . _CCP1CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 46: CCPR1L = speed >> 2;
-"46
-[e = _CCPR1L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 47: }
-"47
-[e :UE 324 ]
-}
-"49
-[v _setRMotor `(v ~T0 @X0 1 ef1`i ]
+[e $U 328  ]
 {
-[; ;motors.c: 49: void setRMotor(signed int speed){
-[e :U _setRMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
-[f ]
-[; ;motors.c: 50: LATCbits.LATC0 = speed < 0;
-"50
-[e = . . _LATCbits 0 0 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 51: if(speed < -1000) speed = -1000;
-"51
-[e $ ! < _speed -U -> 1000 `i 329  ]
-[e = _speed -U -> 1000 `i ]
+[; ;main.c: 41: case MENU:
+"41
 [e :U 329 ]
-[; ;motors.c: 52: if(speed > 1000) speed = 1000;
-"52
-[e $ ! > _speed -> 1000 `i 330  ]
-[e = _speed -> 1000 `i ]
-[e :U 330 ]
-[; ;motors.c: 53: if(speed < 0) speed += 1000;
-"53
-[e $ ! < _speed -> 0 `i 331  ]
-[e =+ _speed -> 1000 `i ]
+[; ;main.c: 42: setMotors(-50, 50);
+"42
+[e ( _setMotors (2 , -U -> 50 `i -> 50 `i ]
+[; ;main.c: 43: setLEDs(1, cal, 0);
+"43
+[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> F3400 `i `uc -> -> 0 `i `uc ]
+[; ;main.c: 46: if(getBTN1()){
+"46
+[e $ ! ( _getBTN1 ..  330  ]
+{
+[; ;main.c: 47: while(getBTN1()) continue;
+"47
+[e $U 331  ]
+[e :U 332 ]
+[e $U 331  ]
 [e :U 331 ]
-[; ;motors.c: 55: CCP2CONbits.DC2B = speed & 3;
+[e $ ( _getBTN1 ..  332  ]
+[e :U 333 ]
+[; ;main.c: 48: cal = 1;
+"48
+[e = F3400 -> -> 1 `i `b ]
+[; ;main.c: 49: status = CALIB;
+"49
+[e = F3399 -> . `E3378 1 `uc ]
+[; ;main.c: 50: break;
+"50
+[e $U 327  ]
+"51
+}
+[e :U 330 ]
+[; ;main.c: 51: }
+[; ;main.c: 52: if(getBTN2()){
+"52
+[e $ ! ( _getBTN2 ..  334  ]
+{
+[; ;main.c: 53: if(cal) status = RUN;
+"53
+[e $ ! F3400 335  ]
+[e = F3399 -> . `E3378 2 `uc ]
+[e $U 336  ]
+"54
+[e :U 335 ]
+[; ;main.c: 54: else {
+{
+[; ;main.c: 55: setMotors(1000, 1000);
 "55
-[e = . . _CCP2CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 56: CCPR2L = speed >> 2;
+[e ( _setMotors (2 , -> 1000 `i -> 1000 `i ]
+[; ;main.c: 56: setLEDs(1, 1, 1);
 "56
-[e = _CCPR2L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 57: }
+[e ( _setLEDs (3 , , -> -> 1 `i `uc -> -> 1 `i `uc -> -> 1 `i `uc ]
 "57
-[e :UE 328 ]
+}
+[e :U 336 ]
+[; ;main.c: 57: }
+[; ;main.c: 58: while(getBTN2()) continue;
+"58
+[e $U 337  ]
+[e :U 338 ]
+[e $U 337  ]
+[e :U 337 ]
+[e $ ( _getBTN2 ..  338  ]
+[e :U 339 ]
+[; ;main.c: 59: break;
+"59
+[e $U 327  ]
+"60
+}
+[e :U 334 ]
+[; ;main.c: 60: }
+[; ;main.c: 61: break;
+"61
+[e $U 327  ]
+[; ;main.c: 63: case CALIB:
+"63
+[e :U 340 ]
+[; ;main.c: 64: setLEDs(0, 1, 0);
+"64
+[e ( _setLEDs (3 , , -> -> 0 `i `uc -> -> 1 `i `uc -> -> 0 `i `uc ]
+[; ;main.c: 65: setMotors(-50, 50);
+"65
+[e ( _setMotors (2 , -U -> 50 `i -> 50 `i ]
+[; ;main.c: 66: for(int i = 0; i < 5000; i++) calibrateCNY(i % 5);
+"66
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5000 `i 341  ]
+[e $U 342  ]
+[e :U 341 ]
+[e ( _calibrateCNY (1 -> % _i -> 5 `i `ui ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5000 `i 341  ]
+[e :U 342 ]
+}
+[; ;main.c: 67: setMotors(50, -50);
+"67
+[e ( _setMotors (2 , -> 50 `i -U -> 50 `i ]
+[; ;main.c: 68: for(int i = 0; i < 5000; i++) calibrateCNY(i % 5);
+"68
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5000 `i 344  ]
+[e $U 345  ]
+[e :U 344 ]
+[e ( _calibrateCNY (1 -> % _i -> 5 `i `ui ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5000 `i 344  ]
+[e :U 345 ]
+}
+[; ;main.c: 69: setMotors(0, 0);
+"69
+[e ( _setMotors (2 , -> 0 `i -> 0 `i ]
+[; ;main.c: 70: status = MENU;
+"70
+[e = F3399 -> . `E3378 0 `uc ]
+[; ;main.c: 71: break;
+"71
+[e $U 327  ]
+[; ;main.c: 73: case RUN:
+"73
+[e :U 347 ]
+[; ;main.c: 74: setLEDs(0, 0, 1);
+"74
+[e ( _setLEDs (3 , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc ]
+[; ;main.c: 75: pid = calcPID(kp, ki, kd);
+"75
+[e = _pid ( _calcPID (3 , , _kp _ki _kd ]
+[; ;main.c: 76: if(pid < 0) setMotors((maxSpeed - pid), maxSpeed);
+"76
+[e $ ! < _pid -> 0 `i 348  ]
+[e ( _setMotors (2 , - _maxSpeed _pid _maxSpeed ]
+[e $U 349  ]
+"77
+[e :U 348 ]
+[; ;main.c: 77: else setMotors(maxSpeed, (maxSpeed - pid));
+[e ( _setMotors (2 , _maxSpeed - _maxSpeed _pid ]
+[e :U 349 ]
+[; ;main.c: 78: break;
+"78
+[e $U 327  ]
+"79
+}
+[; ;main.c: 79: }
+[e $U 327  ]
+"40
+[e :U 328 ]
+[e [\ F3399 , $ -> . `E3378 0 `uc 329
+ , $ -> . `E3378 1 `uc 340
+ , $ -> . `E3378 2 `uc 347
+ 327 ]
+"79
+[e :U 327 ]
+[; ;main.c: 80: }
+"80
+[e :UE 326 ]
+}
+"82
+[v _initInterrupts `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 82: void initInterrupts(void){
+[e :U _initInterrupts ]
+[f ]
+[; ;main.c: 83: INTCONbits.PEIE = 1;
+"83
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;main.c: 84: INTCONbits.GIE = 1;
+"84
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;main.c: 85: }
+"85
+[e :UE 350 ]
+}
+[v $root$_main `(v ~T0 @X0 0 e ]
+"86
+[v _main `(v ~T0 @X0 1 ef ]
+{
+[; ;main.c: 86: void main(){
+[e :U _main ]
+[f ]
+[; ;main.c: 87: initInterrupts();
+"87
+[e ( _initInterrupts ..  ]
+[; ;main.c: 88: initTimer();
+"88
+[e ( _initTimer ..  ]
+[; ;main.c: 89: initUI();
+"89
+[e ( _initUI ..  ]
+[; ;main.c: 90: initMotors();
+"90
+[e ( _initMotors ..  ]
+[; ;main.c: 91: initCNY();
+"91
+[e ( _initCNY ..  ]
+[; ;main.c: 92: initCal();
+"92
+[e ( _initCal ..  ]
+[; ;main.c: 93: while(1) loop();
+"93
+[e :U 353 ]
+[e ( _loop ..  ]
+[e :U 352 ]
+[e $U 353  ]
+[e :U 354 ]
+[; ;main.c: 94: }
+"94
+[e :UE 351 ]
+}
+[v $root$_ISR `(v ~T0 @X0 0 e ]
+[v F3409 `(v ~T0 @X0 1 tf ]
+"95
+[v _ISR `IF3409 ~T0 @X0 1 e ]
+{
+[; ;main.c: 95: void interrupt ISR(void){
+[e :U _ISR ]
+[f ]
+[; ;main.c: 96: timerInterrupt();
+"96
+[e ( _timerInterrupt ..  ]
+[; ;main.c: 97: cnyInterrupt();
+"97
+[e ( _cnyInterrupt ..  ]
+[; ;main.c: 98: }
+"98
+[e :UE 355 ]
 }

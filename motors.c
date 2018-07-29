@@ -3,13 +3,13 @@
 
 #define TRIS_MOTR TRISCbits.TRISC0
 #define TRIS_MOTL TRISCbits.TRISC6
-#define TRIS_MOTL_PWM TRISCbits.TRISC2
-#define TRIS_MOTR_PWM TRISCbits.TRISC1
+#define TRIS_MOTL_PWM TRISCbits.TRISC1
+#define TRIS_MOTR_PWM TRISCbits.TRISC2
 
 #define LAT_MOTR LATCbits.LATC0
 #define LAT_MOTL LATCbits.LATC6
-#define LAT_MOTR_PWM LATCbits.LATC2
-#define LAT_MOTL_PWM LATCbits.LATC1
+#define LAT_MOTR_PWM LATCbits.LATC1
+#define LAT_MOTL_PWM LATCbits.LATC2
 
 void initMotors(void){
     TRIS_MOTL = 0;
@@ -32,16 +32,26 @@ void initMotors(void){
 }
 
 void setMotors(signed int left, signed int right){
-    LAT_MOTL = left <= 0;
-    LAT_MOTR = right <= 0;
-    if(left < 0) left = 1000 - left;
-    if(right < 0) right = 1000 - right;
-    if(left > 1000) left = 1000;
-    if(right > 1000) right = 1000;
-    left = left * 1024 / 1000;
-    right = right * 1024 / 1000;
-    CCP2CONbits.DC2B = left & 3;
-    CCP1CONbits.DC1B = right & 3;
-    CCPR2L = left >> 2;
-    CCPR1L = right >> 2;
+    setLMotor(left);
+    setRMotor(right);
+}
+
+void setLMotor(signed int speed){
+    LAT_MOTL = speed < 0;
+    if(speed < -1000) speed = -1000;
+    if(speed > 1000) speed = 1000;
+    if(speed < 0) speed += 1000;
+    //speed *= 1.023;
+    CCP1CONbits.DC1B = speed & 3;
+    CCPR1L = speed >> 2;
+}
+
+void setRMotor(signed int speed){
+    LAT_MOTR = speed < 0;
+    if(speed < -1000) speed = -1000;
+    if(speed > 1000) speed = 1000;
+    if(speed < 0) speed += 1000;
+    //speed *= 1.023;
+    CCP2CONbits.DC2B = speed & 3;
+    CCPR2L = speed >> 2;
 }

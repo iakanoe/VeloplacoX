@@ -4374,7 +4374,7 @@ static bit cal = 0;
 int pid;
 switch(status){
 case MENU:
-setMotors(0, 0);
+setMotors(-50, 50);
 setLEDs(1, cal, 0);
 
 
@@ -4397,12 +4397,10 @@ break;
 
 case CALIB:
 setLEDs(0, 1, 0);
-setMotors(-250, 250);
-for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
-setMotors(250, -250);
-for(int i = 0; i < 20000; i++) calibrateCNY(i % 5);
-setMotors(-250, 250);
-for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
+setMotors(-50, 50);
+for(int i = 0; i < 5000; i++) calibrateCNY(i % 5);
+setMotors(50, -50);
+for(int i = 0; i < 5000; i++) calibrateCNY(i % 5);
 setMotors(0, 0);
 status = MENU;
 break;

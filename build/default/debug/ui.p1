@@ -1,60 +1,46 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"3266 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
-[s S126 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S126 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
-"3274
-[s S127 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S127 . RC0 RC1 RC2 . RC6 RC7 ]
-"3265
-[u S125 `S126 1 `S127 1 ]
-[n S125 . . . ]
-"3283
-[v _TRISCbits `VS125 ~T0 @X0 0 e@3988 ]
-"2763
-[s S111 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S111 . LATC0 LATC1 LATC2 . LATC6 LATC7 ]
-"2771
-[s S112 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S112 . LC0 LC1 LC2 . LC6 LC7 ]
-"2762
-[u S110 `S111 1 `S112 1 ]
-[n S110 . . . ]
-"2780
-[v _LATCbits `VS110 ~T0 @X0 0 e@3979 ]
-"6115
-[v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"5313
-[v _CCPR1L `Vuc ~T0 @X0 0 e@4030 ]
-"5228
-[v _CCPR2L `Vuc ~T0 @X0 0 e@4027 ]
-"5248
-[s S218 :4 `uc 1 :2 `uc 1 ]
-[n S218 . CCP1M DC1B ]
-"5252
-[s S219 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S219 . CCP1M0 CCP1M1 CCP1M2 CCP1M3 DC1B0 DC1B1 ]
-"5247
-[u S217 `S218 1 `S219 1 ]
-[n S217 . . . ]
-"5261
-[v _CCP1CONbits `VS217 ~T0 @X0 0 e@4029 ]
-"5163
-[s S215 :4 `uc 1 :2 `uc 1 ]
-[n S215 . CCP2M DC2B ]
-"5167
-[s S216 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S216 . CCP2M0 CCP2M1 CCP2M2 CCP2M3 DC2B0 DC2B1 ]
-"5162
-[u S214 `S215 1 `S216 1 ]
-[n S214 . . . ]
-"5176
-[v _CCP2CONbits `VS214 ~T0 @X0 0 e@4026 ]
-"6017
-[v _T2CON `Vuc ~T0 @X0 0 e@4042 ]
-"6 motors.h
-[v _setLMotor `(v ~T0 @X0 0 ef1`i ]
-"7
-[v _setRMotor `(v ~T0 @X0 0 ef1`i ]
+"3044 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+[s S120 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S120 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
+"3054
+[s S121 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S121 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"3043
+[u S119 `S120 1 `S121 1 ]
+[n S119 . . . ]
+"3065
+[v _TRISBbits `VS119 ~T0 @X0 0 e@3987 ]
+"2651
+[s S108 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S108 . LATB0 LATB1 LATB2 LATB3 LATB4 LATB5 LATB6 LATB7 ]
+"2661
+[s S109 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S109 . LB0 LB1 LB2 LB3 LB4 LB5 LB6 LB7 ]
+"2650
+[u S107 `S108 1 `S109 1 ]
+[n S107 . . . ]
+"2672
+[v _LATBbits `VS107 ~T0 @X0 0 e@3978 ]
+"9 ui.h
+[v _setLEDR `(v ~T0 @X0 0 ef1`uc ]
+"10
+[v _setLEDY `(v ~T0 @X0 0 ef1`uc ]
+"11
+[v _setLEDG `(v ~T0 @X0 0 ef1`uc ]
+"2260 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+[s S91 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S91 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"2270
+[s S92 :1 `uc 1 :1 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S92 . INT0 INT1 INT2 . PGM PGC PGD ]
+"2279
+[s S93 :3 `uc 1 :1 `uc 1 ]
+[n S93 . . CCP2_PA2 ]
+"2259
+[u S90 `S91 1 `S92 1 `S93 1 ]
+[n S90 . . . . ]
+"2284
+[v _PORTBbits `VS90 ~T0 @X0 0 e@3969 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3160,147 +3146,196 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;motors.h: 4: void initMotors(void);
-[; ;motors.h: 5: void setMotors(signed int left, signed int right);
-[; ;motors.h: 6: void setLMotor(signed int speed);
-[; ;motors.h: 7: void setRMotor(signed int speed);
-"14 motors.c
-[v _initMotors `(v ~T0 @X0 1 ef ]
+[; ;ui.h: 4: void initUI(void);
+[; ;ui.h: 5: void setLEDs(char r, char y, char g);
+[; ;ui.h: 6: bit getBTN1(void);
+[; ;ui.h: 7: bit getBTN2(void);
+[; ;ui.h: 8: bit getBTNs(void);
+[; ;ui.h: 9: void setLEDR(char v);
+[; ;ui.h: 10: void setLEDY(char v);
+[; ;ui.h: 11: void setLEDG(char v);
+[; ;ui.h: 12: bit getLEDR(void);
+[; ;ui.h: 13: bit getLEDY(void);
+[; ;ui.h: 14: bit getLEDG(void);
+"18 ui.c
+[v _initUI `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 14: void initMotors(void){
-[e :U _initMotors ]
+[; ;ui.c: 18: void initUI(void){
+[e :U _initUI ]
 [f ]
-[; ;motors.c: 15: TRISCbits.TRISC6 = 0;
-"15
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 16: TRISCbits.TRISC0 = 0;
-"16
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 18: LATCbits.LATC0 = 0;
-"18
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 19: LATCbits.LATC6 = 0;
+[; ;ui.c: 19: TRISBbits.RB1 = 0;
 "19
-[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 21: TRISCbits.TRISC1 = 0;
-"21
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 22: TRISCbits.TRISC2 = 0;
+[e = . . _TRISBbits 1 1 -> -> 0 `i `uc ]
+[; ;ui.c: 20: LATBbits.LB1 = 0;
+"20
+[e = . . _LATBbits 1 1 -> -> 0 `i `uc ]
+[; ;ui.c: 22: TRISBbits.RB2 = 0;
 "22
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;motors.c: 24: PR2 = 249;
-"24
-[e = _PR2 -> -> 249 `i `uc ]
-[; ;motors.c: 25: CCPR1L = 0;
+[e = . . _TRISBbits 1 2 -> -> 0 `i `uc ]
+[; ;ui.c: 23: LATBbits.LB2 = 0;
+"23
+[e = . . _LATBbits 1 2 -> -> 0 `i `uc ]
+[; ;ui.c: 25: TRISBbits.RB3 = 0;
 "25
-[e = _CCPR1L -> -> 0 `i `uc ]
-[; ;motors.c: 26: CCPR2L = 0;
+[e = . . _TRISBbits 1 3 -> -> 0 `i `uc ]
+[; ;ui.c: 26: LATBbits.LB3 = 0;
 "26
-[e = _CCPR2L -> -> 0 `i `uc ]
-[; ;motors.c: 27: CCP1CONbits.DC1B = 0;
-"27
-[e = . . _CCP1CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 28: CCP2CONbits.DC2B = 0;
+[e = . . _LATBbits 1 3 -> -> 0 `i `uc ]
+[; ;ui.c: 28: TRISBbits.RB0 = 1;
 "28
-[e = . . _CCP2CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 29: T2CON = 0x05;
+[e = . . _TRISBbits 1 0 -> -> 1 `i `uc ]
+[; ;ui.c: 29: TRISBbits.RB5 = 1;
 "29
-[e = _T2CON -> -> 5 `i `uc ]
-[; ;motors.c: 30: CCP1CONbits.CCP1M = 0xF;
+[e = . . _TRISBbits 1 5 -> -> 1 `i `uc ]
+[; ;ui.c: 30: }
 "30
-[e = . . _CCP1CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 31: CCP2CONbits.CCP2M = 0xF;
-"31
-[e = . . _CCP2CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 32: }
-"32
 [e :UE 322 ]
 }
-"34
-[v _setMotors `(v ~T0 @X0 1 ef2`i`i ]
+"32
+[v _setLEDs `(v ~T0 @X0 1 ef3`uc`uc`uc ]
 {
-[; ;motors.c: 34: void setMotors(signed int left, signed int right){
-[e :U _setMotors ]
-[v _left `i ~T0 @X0 1 r1 ]
-[v _right `i ~T0 @X0 1 r2 ]
+[; ;ui.c: 32: void setLEDs(char r, char y, char g){
+[e :U _setLEDs ]
+[v _r `uc ~T0 @X0 1 r1 ]
+[v _y `uc ~T0 @X0 1 r2 ]
+[v _g `uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;motors.c: 35: setLMotor(left);
+[; ;ui.c: 33: setLEDR(r);
+"33
+[e ( _setLEDR (1 _r ]
+[; ;ui.c: 34: setLEDY(y);
+"34
+[e ( _setLEDY (1 _y ]
+[; ;ui.c: 35: setLEDG(g);
 "35
-[e ( _setLMotor (1 _left ]
-[; ;motors.c: 36: setRMotor(right);
+[e ( _setLEDG (1 _g ]
+[; ;ui.c: 36: }
 "36
-[e ( _setRMotor (1 _right ]
-[; ;motors.c: 37: }
-"37
 [e :UE 323 ]
 }
-"39
-[v _setLMotor `(v ~T0 @X0 1 ef1`i ]
+"38
+[v _getBTN1 `(b ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 39: void setLMotor(signed int speed){
-[e :U _setLMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
+[; ;ui.c: 38: bit getBTN1(void){
+[e :U _getBTN1 ]
 [f ]
-[; ;motors.c: 40: LATCbits.LATC6 = speed < 0;
+[; ;ui.c: 39: return !PORTBbits.RB0;
+"39
+[e ) -> -> ! != -> . . _PORTBbits 0 0 `i -> -> -> 0 `i `Vuc `i `i `b ]
+[e $UE 324  ]
+[; ;ui.c: 40: }
 "40
-[e = . . _LATCbits 0 4 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 41: if(speed < -1000) speed = -1000;
-"41
-[e $ ! < _speed -U -> 1000 `i 325  ]
-[e = _speed -U -> 1000 `i ]
-[e :U 325 ]
-[; ;motors.c: 42: if(speed > 1000) speed = 1000;
-"42
-[e $ ! > _speed -> 1000 `i 326  ]
-[e = _speed -> 1000 `i ]
-[e :U 326 ]
-[; ;motors.c: 43: if(speed < 0) speed += 1000;
-"43
-[e $ ! < _speed -> 0 `i 327  ]
-[e =+ _speed -> 1000 `i ]
-[e :U 327 ]
-[; ;motors.c: 45: CCP1CONbits.DC1B = speed & 3;
-"45
-[e = . . _CCP1CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 46: CCPR1L = speed >> 2;
-"46
-[e = _CCPR1L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 47: }
-"47
 [e :UE 324 ]
 }
-"49
-[v _setRMotor `(v ~T0 @X0 1 ef1`i ]
+"42
+[v _getBTN2 `(b ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 49: void setRMotor(signed int speed){
-[e :U _setRMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
+[; ;ui.c: 42: bit getBTN2(void){
+[e :U _getBTN2 ]
 [f ]
-[; ;motors.c: 50: LATCbits.LATC0 = speed < 0;
+[; ;ui.c: 43: return !PORTBbits.RB5;
+"43
+[e ) -> -> ! != -> . . _PORTBbits 0 5 `i -> -> -> 0 `i `Vuc `i `i `b ]
+[e $UE 325  ]
+[; ;ui.c: 44: }
+"44
+[e :UE 325 ]
+}
+"46
+[v _getBTNs `(b ~T0 @X0 1 ef ]
+{
+[; ;ui.c: 46: bit getBTNs(void){
+[e :U _getBTNs ]
+[f ]
+[; ;ui.c: 47: return getBTN1() || getBTN2();
+"47
+[e ) -> -> || ( _getBTN1 ..  ( _getBTN2 ..  `i `b ]
+[e $UE 326  ]
+[; ;ui.c: 48: }
+"48
+[e :UE 326 ]
+}
 "50
-[e = . . _LATCbits 0 0 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 51: if(speed < -1000) speed = -1000;
+[v _setLEDR `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;ui.c: 50: void setLEDR(char v){
+[e :U _setLEDR ]
+[v _v `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;ui.c: 51: LATBbits.LB1 = v;
 "51
-[e $ ! < _speed -U -> 1000 `i 329  ]
-[e = _speed -U -> 1000 `i ]
-[e :U 329 ]
-[; ;motors.c: 52: if(speed > 1000) speed = 1000;
+[e = . . _LATBbits 1 1 _v ]
+[; ;ui.c: 52: }
 "52
-[e $ ! > _speed -> 1000 `i 330  ]
-[e = _speed -> 1000 `i ]
-[e :U 330 ]
-[; ;motors.c: 53: if(speed < 0) speed += 1000;
-"53
-[e $ ! < _speed -> 0 `i 331  ]
-[e =+ _speed -> 1000 `i ]
-[e :U 331 ]
-[; ;motors.c: 55: CCP2CONbits.DC2B = speed & 3;
+[e :UE 327 ]
+}
+"54
+[v _setLEDY `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;ui.c: 54: void setLEDY(char v){
+[e :U _setLEDY ]
+[v _v `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;ui.c: 55: LATBbits.LB2 = v;
 "55
-[e = . . _CCP2CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 56: CCPR2L = speed >> 2;
+[e = . . _LATBbits 1 2 _v ]
+[; ;ui.c: 56: }
 "56
-[e = _CCPR2L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 57: }
-"57
 [e :UE 328 ]
+}
+"58
+[v _setLEDG `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;ui.c: 58: void setLEDG(char v){
+[e :U _setLEDG ]
+[v _v `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;ui.c: 59: LATBbits.LB3 = v;
+"59
+[e = . . _LATBbits 1 3 _v ]
+[; ;ui.c: 60: }
+"60
+[e :UE 329 ]
+}
+"62
+[v _getLEDR `(b ~T0 @X0 1 ef ]
+{
+[; ;ui.c: 62: bit getLEDR(void){
+[e :U _getLEDR ]
+[f ]
+[; ;ui.c: 63: return LATBbits.LB1;
+"63
+[e ) -> . . _LATBbits 1 1 `b ]
+[e $UE 330  ]
+[; ;ui.c: 64: }
+"64
+[e :UE 330 ]
+}
+"66
+[v _getLEDY `(b ~T0 @X0 1 ef ]
+{
+[; ;ui.c: 66: bit getLEDY(void){
+[e :U _getLEDY ]
+[f ]
+[; ;ui.c: 67: return LATBbits.LB2;
+"67
+[e ) -> . . _LATBbits 1 2 `b ]
+[e $UE 331  ]
+[; ;ui.c: 68: }
+"68
+[e :UE 331 ]
+}
+"70
+[v _getLEDG `(b ~T0 @X0 1 ef ]
+{
+[; ;ui.c: 70: bit getLEDG(void){
+[e :U _getLEDG ]
+[f ]
+[; ;ui.c: 71: return LATBbits.LB3;
+"71
+[e ) -> . . _LATBbits 1 3 `b ]
+[e $UE 332  ]
+[; ;ui.c: 72: }
+"72
+[e :UE 332 ]
 }

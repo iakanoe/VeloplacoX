@@ -10,7 +10,7 @@ unsigned int mins[5], maxs[5];
 
 void initCal(void){
     for(int i = 0; i < 5; i++){
-        mins[i] = 1024;
+        mins[i] = 1023;
         maxs[i] = 0;
     }
 }
@@ -26,4 +26,5 @@ unsigned int getCalCNY(unsigned int channel){
     mins[channel] = min(val, mins[channel]);
     maxs[channel] = max(val, maxs[channel]);
     val = map(val, mins[channel], maxs[channel], 0, 1000);
+    return val;
 }

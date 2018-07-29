@@ -1,60 +1,20 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"3266 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
-[s S126 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S126 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
-"3274
-[s S127 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S127 . RC0 RC1 RC2 . RC6 RC7 ]
-"3265
-[u S125 `S126 1 `S127 1 ]
-[n S125 . . . ]
-"3283
-[v _TRISCbits `VS125 ~T0 @X0 0 e@3988 ]
-"2763
-[s S111 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S111 . LATC0 LATC1 LATC2 . LATC6 LATC7 ]
-"2771
-[s S112 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S112 . LC0 LC1 LC2 . LC6 LC7 ]
-"2762
-[u S110 `S111 1 `S112 1 ]
-[n S110 . . . ]
-"2780
-[v _LATCbits `VS110 ~T0 @X0 0 e@3979 ]
-"6115
-[v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-"5313
-[v _CCPR1L `Vuc ~T0 @X0 0 e@4030 ]
-"5228
-[v _CCPR2L `Vuc ~T0 @X0 0 e@4027 ]
-"5248
-[s S218 :4 `uc 1 :2 `uc 1 ]
-[n S218 . CCP1M DC1B ]
-"5252
-[s S219 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S219 . CCP1M0 CCP1M1 CCP1M2 CCP1M3 DC1B0 DC1B1 ]
-"5247
-[u S217 `S218 1 `S219 1 ]
-[n S217 . . . ]
-"5261
-[v _CCP1CONbits `VS217 ~T0 @X0 0 e@4029 ]
-"5163
-[s S215 :4 `uc 1 :2 `uc 1 ]
-[n S215 . CCP2M DC2B ]
-"5167
-[s S216 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S216 . CCP2M0 CCP2M1 CCP2M2 CCP2M3 DC2B0 DC2B1 ]
-"5162
-[u S214 `S215 1 `S216 1 ]
-[n S214 . . . ]
-"5176
-[v _CCP2CONbits `VS214 ~T0 @X0 0 e@4026 ]
-"6017
-[v _T2CON `Vuc ~T0 @X0 0 e@4042 ]
-"6 motors.h
-[v _setLMotor `(v ~T0 @X0 0 ef1`i ]
-"7
-[v _setRMotor `(v ~T0 @X0 0 ef1`i ]
+"7405 C:\Program Files (x86)\Microchip\xc8\v1.45\include\pic18f2550.h
+[s S315 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S315 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
+"7415
+[s S316 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S316 . . INT0F T0IF . INT0E T0IE PEIE GIE ]
+"7425
+[s S317 :6 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S317 . . GIEL GIEH ]
+"7404
+[u S314 `S315 1 `S316 1 `S317 1 ]
+[n S314 . . . . ]
+"7431
+[v _INTCONbits `VS314 ~T0 @X0 0 e@4082 ]
+"6886
+[v _T0CON `Vuc ~T0 @X0 0 e@4053 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -3160,147 +3120,86 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 164: extern __nonreentrant void _delay(unsigned long);
 [; ;pic18.h: 166: extern __nonreentrant void _delaywdt(unsigned long);
 [; ;pic18.h: 168: extern __nonreentrant void _delay3(unsigned char);
-[; ;motors.h: 4: void initMotors(void);
-[; ;motors.h: 5: void setMotors(signed int left, signed int right);
-[; ;motors.h: 6: void setLMotor(signed int speed);
-[; ;motors.h: 7: void setRMotor(signed int speed);
-"14 motors.c
-[v _initMotors `(v ~T0 @X0 1 ef ]
+[; ;timer.h: 4: unsigned long millis(void);
+[; ;timer.h: 5: void timerInterrupt(void);
+[; ;timer.h: 6: void initTimer(void);
+"4 timer.c
+[v _millisCounter `ul ~T0 @X0 1 e ]
+[i _millisCounter
+-> -> -> 0 `i `l `ul
+]
+[; ;timer.c: 4: unsigned long millisCounter = 0;
+"5
+[v _fractionCounter `ui ~T0 @X0 1 e ]
+[i _fractionCounter
+-> -> 0 `i `ui
+]
+[; ;timer.c: 5: unsigned int fractionCounter = 0;
+"7
+[v _millis `(ul ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 14: void initMotors(void){
-[e :U _initMotors ]
+[; ;timer.c: 7: unsigned long millis(void){
+[e :U _millis ]
 [f ]
-[; ;motors.c: 15: TRISCbits.TRISC6 = 0;
-"15
-[e = . . _TRISCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 16: TRISCbits.TRISC0 = 0;
-"16
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 18: LATCbits.LATC0 = 0;
-"18
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-[; ;motors.c: 19: LATCbits.LATC6 = 0;
-"19
-[e = . . _LATCbits 0 4 -> -> 0 `i `uc ]
-[; ;motors.c: 21: TRISCbits.TRISC1 = 0;
-"21
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 22: TRISCbits.TRISC2 = 0;
-"22
-[e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-[; ;motors.c: 24: PR2 = 249;
-"24
-[e = _PR2 -> -> 249 `i `uc ]
-[; ;motors.c: 25: CCPR1L = 0;
-"25
-[e = _CCPR1L -> -> 0 `i `uc ]
-[; ;motors.c: 26: CCPR2L = 0;
-"26
-[e = _CCPR2L -> -> 0 `i `uc ]
-[; ;motors.c: 27: CCP1CONbits.DC1B = 0;
-"27
-[e = . . _CCP1CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 28: CCP2CONbits.DC2B = 0;
-"28
-[e = . . _CCP2CONbits 0 1 -> -> 0 `i `uc ]
-[; ;motors.c: 29: T2CON = 0x05;
-"29
-[e = _T2CON -> -> 5 `i `uc ]
-[; ;motors.c: 30: CCP1CONbits.CCP1M = 0xF;
-"30
-[e = . . _CCP1CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 31: CCP2CONbits.CCP2M = 0xF;
-"31
-[e = . . _CCP2CONbits 0 0 -> -> 15 `i `uc ]
-[; ;motors.c: 32: }
-"32
+[; ;timer.c: 8: return millisCounter;
+"8
+[e ) _millisCounter ]
+[e $UE 322  ]
+[; ;timer.c: 9: }
+"9
 [e :UE 322 ]
 }
-"34
-[v _setMotors `(v ~T0 @X0 1 ef2`i`i ]
+"11
+[v _timerInterrupt `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 34: void setMotors(signed int left, signed int right){
-[e :U _setMotors ]
-[v _left `i ~T0 @X0 1 r1 ]
-[v _right `i ~T0 @X0 1 r2 ]
+[; ;timer.c: 11: void timerInterrupt(void){
+[e :U _timerInterrupt ]
 [f ]
-[; ;motors.c: 35: setLMotor(left);
-"35
-[e ( _setLMotor (1 _left ]
-[; ;motors.c: 36: setRMotor(right);
-"36
-[e ( _setRMotor (1 _right ]
-[; ;motors.c: 37: }
-"37
+[; ;timer.c: 12: if(!INTCONbits.TMR0IF) return;
+"12
+[e $ ! ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 324  ]
+[e $UE 323  ]
+[e :U 324 ]
+[; ;timer.c: 13: fractionCounter += 680;
+"13
+[e =+ _fractionCounter -> -> 680 `i `ui ]
+[; ;timer.c: 14: if(1000 <= fractionCounter){
+"14
+[e $ ! <= -> -> 1000 `i `ui _fractionCounter 325  ]
+{
+[; ;timer.c: 15: fractionCounter -= 1000;
+"15
+[e =- _fractionCounter -> -> 1000 `i `ui ]
+[; ;timer.c: 16: millisCounter++;
+"16
+[e ++ _millisCounter -> -> -> 1 `i `l `ul ]
+"17
+}
+[e :U 325 ]
+[; ;timer.c: 17: }
+[; ;timer.c: 18: INTCONbits.TMR0IF = 0;
+"18
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;timer.c: 19: }
+"19
 [e :UE 323 ]
 }
-"39
-[v _setLMotor `(v ~T0 @X0 1 ef1`i ]
+"21
+[v _initTimer `(v ~T0 @X0 1 ef ]
 {
-[; ;motors.c: 39: void setLMotor(signed int speed){
-[e :U _setLMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
+[; ;timer.c: 21: void initTimer(void){
+[e :U _initTimer ]
 [f ]
-[; ;motors.c: 40: LATCbits.LATC6 = speed < 0;
-"40
-[e = . . _LATCbits 0 4 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 41: if(speed < -1000) speed = -1000;
-"41
-[e $ ! < _speed -U -> 1000 `i 325  ]
-[e = _speed -U -> 1000 `i ]
-[e :U 325 ]
-[; ;motors.c: 42: if(speed > 1000) speed = 1000;
-"42
-[e $ ! > _speed -> 1000 `i 326  ]
-[e = _speed -> 1000 `i ]
-[e :U 326 ]
-[; ;motors.c: 43: if(speed < 0) speed += 1000;
-"43
-[e $ ! < _speed -> 0 `i 327  ]
-[e =+ _speed -> 1000 `i ]
-[e :U 327 ]
-[; ;motors.c: 45: CCP1CONbits.DC1B = speed & 3;
-"45
-[e = . . _CCP1CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 46: CCPR1L = speed >> 2;
-"46
-[e = _CCPR1L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 47: }
-"47
-[e :UE 324 ]
-}
-"49
-[v _setRMotor `(v ~T0 @X0 1 ef1`i ]
-{
-[; ;motors.c: 49: void setRMotor(signed int speed){
-[e :U _setRMotor ]
-[v _speed `i ~T0 @X0 1 r1 ]
-[f ]
-[; ;motors.c: 50: LATCbits.LATC0 = speed < 0;
-"50
-[e = . . _LATCbits 0 0 -> -> < _speed -> 0 `i `i `uc ]
-[; ;motors.c: 51: if(speed < -1000) speed = -1000;
-"51
-[e $ ! < _speed -U -> 1000 `i 329  ]
-[e = _speed -U -> 1000 `i ]
-[e :U 329 ]
-[; ;motors.c: 52: if(speed > 1000) speed = 1000;
-"52
-[e $ ! > _speed -> 1000 `i 330  ]
-[e = _speed -> 1000 `i ]
-[e :U 330 ]
-[; ;motors.c: 53: if(speed < 0) speed += 1000;
-"53
-[e $ ! < _speed -> 0 `i 331  ]
-[e =+ _speed -> 1000 `i ]
-[e :U 331 ]
-[; ;motors.c: 55: CCP2CONbits.DC2B = speed & 3;
-"55
-[e = . . _CCP2CONbits 0 1 -> & _speed -> 3 `i `uc ]
-[; ;motors.c: 56: CCPR2L = speed >> 2;
-"56
-[e = _CCPR2L -> >> _speed -> 2 `i `uc ]
-[; ;motors.c: 57: }
-"57
-[e :UE 328 ]
+[; ;timer.c: 22: INTCONbits.TMR0IF = 0;
+"22
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;timer.c: 23: INTCONbits.TMR0IE = 1;
+"23
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;timer.c: 24: T0CON = 0xC4;
+"24
+[e = _T0CON -> -> 196 `i `uc ]
+[; ;timer.c: 25: }
+"25
+[e :UE 326 ]
 }

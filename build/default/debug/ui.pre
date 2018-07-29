@@ -1,79 +1,5 @@
 
-# 1 "main.c"
-
-
-# 3 "pragma.h"
-#pragma config PLLDIV = 5
-#pragma config CPUDIV = OSC1_PLL2
-#pragma config USBDIV = 2
-#pragma config FOSC = HSPLL_HS
-#pragma config FCMEN = OFF
-#pragma config IESO = OFF
-#pragma config PWRT = OFF
-#pragma config BOR = OFF
-#pragma config BORV = 0
-#pragma config VREGEN = OFF
-#pragma config WDT = OFF
-#pragma config WDTPS = 1
-#pragma config CCP2MX = ON
-#pragma config PBADEN = ON
-#pragma config LPT1OSC = OFF
-#pragma config MCLRE = OFF
-#pragma config STVREN = OFF
-#pragma config LVP = OFF
-#pragma config XINST = OFF
-#pragma config CP0 = OFF
-#pragma config CP1 = OFF
-#pragma config CP2 = OFF
-#pragma config CP3 = OFF
-#pragma config CPB = OFF
-#pragma config CPD = OFF
-#pragma config WRT0 = OFF
-#pragma config WRT1 = OFF
-#pragma config WRT2 = OFF
-#pragma config WRT3 = OFF
-#pragma config WRTC = OFF
-#pragma config WRTB = OFF
-#pragma config WRTD = OFF
-#pragma config EBTR0 = OFF
-#pragma config EBTR1 = OFF
-#pragma config EBTR2 = OFF
-#pragma config EBTR3 = OFF
-#pragma config EBTRB = OFF
-
-# 4 "timer.h"
-unsigned long millis(void);
-void timerInterrupt(void);
-void initTimer(void);
-
-# 4 "ui.h"
-void initUI(void);
-void setLEDs(char r, char y, char g);
-bit getBTN1(void);
-bit getBTN2(void);
-bit getBTNs(void);
-void setLEDR(char v);
-void setLEDY(char v);
-void setLEDG(char v);
-bit getLEDR(void);
-bit getLEDY(void);
-bit getLEDG(void);
-
-# 4 "motors.h"
-void initMotors(void);
-void setMotors(signed int left, signed int right);
-void setLMotor(signed int speed);
-void setRMotor(signed int speed);
-
-# 4 "CNY.h"
-void initCNY(void);
-void cnyInterrupt(void);
-unsigned int getCNY(unsigned char channel);
-
-# 4 "calibration.h"
-void initCal(void);
-void calibrateCNY(unsigned int channel);
-unsigned int getCalCNY(unsigned int channel);
+# 1 "ui.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.45\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -4340,96 +4266,72 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 9 "main.c"
-const float kp = 1;
-const float ki = 1;
-const float kd = 1;
-const int maxSpeed = 500;
+# 4 "ui.h"
+void initUI(void);
+void setLEDs(char r, char y, char g);
+bit getBTN1(void);
+bit getBTN2(void);
+bit getBTNs(void);
+void setLEDR(char v);
+void setLEDY(char v);
+void setLEDG(char v);
+bit getLEDR(void);
+bit getLEDY(void);
+bit getLEDG(void);
 
-enum {
-MENU,
-CALIB,
-RUN
-};
+# 18 "ui.c"
+void initUI(void){
+TRISBbits.RB1 = 0;
+LATBbits.LB1 = 0;
 
-int calcPID(const float Kp, const float Ki, const float Kd){
-static int prevErr = 0, integral = 0, err;
-unsigned long long s1 = 0, s2 = 0;
-for(int i = 0; i < 5; i++){
-const unsigned int val = getCalCNY(i);
-s1 += val * (i + 1) * 100;
-s2 += val;
-}
-const int pos = s1 / s2;
-prevErr = err;
-err = 300 - pos;
-integral += err;
-return ((int) (Kp * (float) err) + (Ki * (float) integral) + (Kd * (float) (err - prevErr)));
+TRISBbits.RB2 = 0;
+LATBbits.LB2 = 0;
 
-}
+TRISBbits.RB3 = 0;
+LATBbits.LB3 = 0;
 
-void loop(){
-static char status = MENU;
-static bit cal = 0;
-int pid;
-switch(status){
-case MENU:
-setMotors(0, 0);
-setLEDs(1, cal, 0);
-
-
-if(getBTN1()){
-while(getBTN1()) continue;
-cal = 1;
-status = CALIB;
-break;
-}
-if(getBTN2()){
-if(cal) status = RUN;
-else {
-setMotors(1000, 1000);
-setLEDs(1, 1, 1);
-}
-while(getBTN2()) continue;
-break;
-}
-break;
-
-case CALIB:
-setLEDs(0, 1, 0);
-setMotors(-250, 250);
-for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
-setMotors(250, -250);
-for(int i = 0; i < 20000; i++) calibrateCNY(i % 5);
-setMotors(-250, 250);
-for(int i = 0; i < 10000; i++) calibrateCNY(i % 5);
-setMotors(0, 0);
-status = MENU;
-break;
-
-case RUN:
-setLEDs(0, 0, 1);
-pid = calcPID(kp, ki, kd);
-if(pid < 0) setMotors((maxSpeed - pid), maxSpeed);
-else setMotors(maxSpeed, (maxSpeed - pid));
-break;
-}
+TRISBbits.RB0 = 1;
+TRISBbits.RB5 = 1;
 }
 
-void initInterrupts(void){
-INTCONbits.PEIE = 1;
-INTCONbits.GIE = 1;
+void setLEDs(char r, char y, char g){
+setLEDR(r);
+setLEDY(y);
+setLEDG(g);
 }
-void main(){
-initInterrupts();
-initTimer();
-initUI();
-initMotors();
-initCNY();
-initCal();
-while(1) loop();
+
+bit getBTN1(void){
+return !PORTBbits.RB0;
 }
-void interrupt ISR(void){
-timerInterrupt();
-cnyInterrupt();
+
+bit getBTN2(void){
+return !PORTBbits.RB5;
+}
+
+bit getBTNs(void){
+return getBTN1() || getBTN2();
+}
+
+void setLEDR(char v){
+LATBbits.LB1 = v;
+}
+
+void setLEDY(char v){
+LATBbits.LB2 = v;
+}
+
+void setLEDG(char v){
+LATBbits.LB3 = v;
+}
+
+bit getLEDR(void){
+return LATBbits.LB1;
+}
+
+bit getLEDY(void){
+return LATBbits.LB2;
+}
+
+bit getLEDG(void){
+return LATBbits.LB3;
 }
